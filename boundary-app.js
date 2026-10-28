@@ -9,12 +9,12 @@ let view = 'perspective';
 let scene;
 const guide={active:true,phase:0};
 const guideCopy=[
-  ['先让 A 移动一次。','实心 A 是原位置；紫色半透明 A 是建议的新位置。点击按钮，展板才会移动。','The purple panel is a proposed position. Apply it to move the real panel.','移动 A 到紫色位置 ↗','Move A to the preview'],
-  ['现在，决定让 A 留在这里。','A 已经移到了新位置。假设你满意这个位置，告诉助手：这块展板先别再动。','A has moved. Keep this position by pinning the panel.','A 就留在这里 ⌖','Keep A here'],
-  ['确认：这次只保护 A。','暂停 A 的布局建议，持续到本次布展结束。B、C、D 仍然可以获得帮助。','Pause layout suggestions for A during this stage. Other panels remain available.','确认固定 A ✓','Confirm the boundary'],
-  ['再让助手试着调整 A。','A 上的金色钉子表示它已被保护。再次提出调整建议，看看会发生什么。','The brass pin marks your boundary. Test another layout suggestion for A.','再试一次 A 的建议 ↗','Test A again'],
-  ['A 的调整被暂停了。','展板没有移动，也没有新的紫色预览。接下来，看看助手还能不能帮你调整 B。','No new preview appears for A. Now check whether help is still available for B.','看看 B 能不能调整 ↗','Try a suggestion for B'],
-  ['A 保留原位，B 仍然能调整。','你刚刚限定了协助范围：只暂停 A 的布局建议。接下来可以自己圈选区域、撤销，或改变期限。','You protected A while keeping help available for B. Explore areas, undo and duration next.','自己试一试 ↗','Explore on your own']
+  ['Move Panel A.','The solid panel shows its current position. The purple panel is a preview; A moves only when you apply it.','','Move A to the preview ↗',''],
+  ['Keep A in this position.','A has moved. If this position works for you, pin the panel to pause further layout suggestions.','','Keep A here ⌖',''],
+  ['Protect A for this stage.','Pause layout suggestions for A until arranging ends. B, C and D can still receive help.','','Confirm the boundary ✓',''],
+  ['Try another suggestion for A.','The brass pin marks the protected panel. Ask for another layout suggestion to see what the boundary does.','','Test A again ↗',''],
+  ['A stays in place.','No new purple preview appears for A. Now check whether the assistant can still suggest a position for B.','','Try a suggestion for B ↗',''],
+  ['A is protected. B can still move.','Your boundary pauses only A’s layout suggestions. Next, try drawing a pause area, undoing a change or changing the duration.','','Explore on your own ↗','']
 ];
 function advanceGuide(action, next) {
   if(!guide.active)return;
@@ -28,20 +28,19 @@ function advanceGuide(action, next) {
 function renderGuide() {
   document.body.dataset.guided=String(guide.active);
   document.body.dataset.guidePhase=String(guide.phase);
-  const copy=guide.active?guideCopy[guide.phase]:['自己布置这间展厅。','点击一块展板，看它的建议；固定对象，或圈出一片暂不调整的区域。','Select a panel to see its suggestion. Pin an object or draw a pause area.','',''];
-  $('#guide-title').textContent=copy[0];$('#guide-copy').textContent=copy[1];$('#guide-english').textContent=copy[2];
+  const copy=guide.active?guideCopy[guide.phase]:['Arrange the exhibition.','Select a panel to see its suggestion. Pin an object, or draw an area where suggestions should pause.','','',''];
+  $('#guide-title').textContent=copy[0];$('#guide-copy').textContent=copy[1];$('#guide-english').textContent=copy[2];$('#guide-english').hidden=!copy[2];
   $('#guide-action').replaceChildren(document.createTextNode(copy[3]));
-  const sub=document.createElement('small');sub.textContent=copy[4];$('#guide-action').append(sub);
+  if(copy[4]){const sub=document.createElement('small');sub.textContent=copy[4];$('#guide-action').append(sub);}
   $('#guide-action').hidden=!guide.active;
-  $('#guide-switch').textContent=guide.active?'自由探索 / Skip guide ↗':'重新跟着试 / Restart guide ↺';
+  $('#guide-switch').textContent=guide.active?'Skip guide ↗':'Restart guide ↺';
   $('#guide-proof').hidden=!(guide.active&&guide.phase===5);
   const current=guide.phase===0?0:guide.phase<3?1:2;
   document.querySelectorAll('[data-guide-step]').forEach(li=>{const n=Number(li.dataset.guideStep);li.classList.toggle('complete',n<current);if(n===current)li.setAttribute('aria-current','step');else li.removeAttribute('aria-current');});
   $('#scene-callout').hidden=!guide.active;
   if(guide.active){
-    const label=guide.phase===0?'紫色 A = 建议的新位置':guide.phase<3?'A 已移动 · 现在把它固定':guide.phase<5?'金色钉子 = A 的布局已保护':'A 已保护 · 紫色 B = 仍可调整';
-    $('#scene-callout').replaceChildren(document.createTextNode(label));
-    const english=document.createElement('span');english.textContent=guide.phase===0?'Purple A = proposed position':guide.phase<3?'A moved. Keep this position.':guide.phase<5?'Brass pin = protected panel':'A is protected. B can still receive help.';$('#scene-callout').append(english);
+    const label=guide.phase===0?'Purple A = proposed position':guide.phase<3?'A moved. Keep this position.':guide.phase<5?'Brass pin = protected panel':'A is protected. B can still receive help.';
+    $('#scene-callout').textContent=label;
   }
   updateInstructions();
 }
@@ -71,7 +70,7 @@ function act(action, message) {
 }
 function select(id) {
   if (state.draftBoundary) { notify('Confirm or cancel the boundary before selecting another panel.'); return; }
-  if(guide.active&&!(guide.phase===4&&id==='b')){notify('先跟着上方的当前步骤试一次，或点“自由探索”。 / Follow the current step above, or choose Skip guide.');return;}
+  if(guide.active&&!(guide.phase===4&&id==='b')){notify('Follow the current step above, or choose Skip guide.');return;}
   state=dispatch(state,{type:'SELECT',id});
   showCandidate(id,'layout');
 }
@@ -84,7 +83,7 @@ function setView(next) {
   updateInstructions();
 }
 function updateInstructions() {
-  $('#scene-instruction').textContent=guide.active?'跟着上方按钮体验；拖动可换个角度看。 / Follow the step above. Drag to look around.':tool==='region'?'Drag on the floor to mark an area. Release to review your boundary.':view==='plan'?'Select a panel, or choose Pause area to draw on the floor.':'Drag to turn the room. Click a panel to select it.';
+  $('#scene-instruction').textContent=guide.active?'Follow the step above. Drag to look around.':tool==='region'?'Drag on the floor to mark an area. Release to review your boundary.':view==='plan'?'Select a panel, or choose Pause area to draw on the floor.':'Drag to turn the room. Click a panel to select it.';
 }
 function setTool(next) {
   tool = next;
@@ -151,12 +150,12 @@ function render() {
     button.disabled = pending||(guide.active&&!(guide.phase===4&&button.dataset.panel==='b'));
   });
   $('#selection-name').textContent = name.toUpperCase();
-  $('#pin-object').innerHTML = `<span aria-hidden="true">⌖</span> 固定 ${state.selected.toUpperCase()}，保留这个位置 <small>Pin ${state.selected.toUpperCase()}</small>`;
+  $('#pin-object').innerHTML = `<span aria-hidden="true">⌖</span> Keep Panel ${state.selected.toUpperCase()} here`;
   $('#pin-object').disabled = pending||(guide.active&&guide.phase!==1);
-  $('#try-selected').textContent = `再看 ${state.selected.toUpperCase()} 的布局建议 / Try ${state.selected.toUpperCase()} ↗`;
+  $('#try-selected').textContent = `Try a layout suggestion for ${state.selected.toUpperCase()} ↗`;
   $('#try-selected').disabled = pending;
   const hasHint = suggestionCatalogue.some(c => c.panelId === state.selected && c.type === 'hint');
-  $('#try-hint').textContent = `看看 ${hasHint ? state.selected.toUpperCase() : 'A'} 的内容提示 / Hint ↗`;
+  $('#try-hint').textContent = `Try a hint for ${hasHint ? state.selected.toUpperCase() : 'A'} ↗`;
   $('#try-hint').disabled = pending;
   $('#next-suggestion').disabled = pending;
   $('#region-tool').disabled = pending;
@@ -181,11 +180,11 @@ function render() {
   const candidate = state.suggestion;
   const outcome = state.lastOutcome;
   const focusId=(candidate||outcome?.candidate)?.panelId;
-  $('#suggestion-index').textContent = focusId?`正在${candidate?.type==='hint'?'解释':'建议'} ${focusId.toUpperCase()} / ${candidate?.type==='hint'?'HINT':'SUGGESTION'} FOR ${focusId.toUpperCase()}`:'下一条建议 / ASSISTANCE';
-  $('#suggestion-title').textContent = candidate ? candidate.title : outcome?.kind === 'suppressed' ? `${outcome.candidate.panelId.toUpperCase()} 保持原位。` : '选择下一步。';
-  $('#suggestion-why').textContent = candidate ? `${candidate.type==='layout'?'紫色虚影是新位置，采用后展板才会移动。':'这是一条内容提示，不会移动展板。'} ${candidate.why}` : outcome?.kind === 'suppressed' ? `你已暂停这部分的${outcome.candidate.type==='layout'?'布局调整':'内容提示'}，因此这次不出现新建议。 Your boundary is active; nothing changes.` : '固定一个位置，或选择另一块展板，看看它的建议。 Select a panel to see its suggestion.';
+  $('#suggestion-index').textContent = focusId?`${(candidate||outcome?.candidate)?.type==='hint'?'HINT':'SUGGESTION'} FOR ${focusId.toUpperCase()}`:'ASSISTANCE';
+  $('#suggestion-title').textContent = candidate ? candidate.title : outcome?.kind === 'suppressed' ? `Panel ${outcome.candidate.panelId.toUpperCase()} stays in place.` : 'Choose what to try next.';
+  $('#suggestion-why').textContent = candidate ? `${candidate.type==='layout'?'The purple panel previews a position. Apply it to move the panel.':'This hint explains the content; it does not move the panel.'} ${candidate.why}` : outcome?.kind === 'suppressed' ? `Your boundary pauses ${outcome.candidate.type==='layout'?'layout suggestions':'explanatory hints'} here. No new suggestion appears; nothing changes.` : 'Pin a panel to keep its position, or select another panel to see its suggestion.';
   $('#accept-suggestion').disabled = !candidate || pending || (guide.active&&guide.phase!==0);
-  $('#accept-suggestion').textContent = candidate?.type === 'hint' ? '明白了 / Got it ✓' : '采用这个位置 / Apply ↗';
+  $('#accept-suggestion').textContent = candidate?.type === 'hint' ? 'Got it ✓' : 'Apply this position ↗';
   $('#dismiss-suggestion').disabled = !candidate || pending;
   $('#outcome-note').hidden = outcome?.kind !== 'suppressed';
   if (outcome?.kind === 'suppressed') { $('#outcome-note').textContent = outcome.ruleReason; $('#outcome-note').dataset.kind = outcome.kind; }
@@ -198,17 +197,17 @@ function restartGuide(){
   $('#boundary-action').value='layout';$('#boundary-duration').value='stage';
   state=dispatch(state,{type:'RESET'});state=dispatch(state,{type:'NEXT_SUGGESTION'});
   setTool('select');setView('perspective');scene?.resetView();render();
-  notify('从上方第一个按钮开始：移动 A 到紫色位置。 / Start with Move A to the preview.');
+  notify('Start with Move A to the preview above.');
 }
-$('#guide-switch').addEventListener('click',()=>{if(guide.active){guide.active=false;render();notify('自由探索：点选哪块展板，就查看哪块展板的建议。 / Select a panel to see its suggestion.');}else restartGuide();});
+$('#guide-switch').addEventListener('click',()=>{if(guide.active){guide.active=false;render();notify('Select a panel to see its suggestion.');}else restartGuide();});
 $('#guide-action').addEventListener('click',()=>{
   switch(guide.phase){
-    case 0: act({type:'ACCEPT_SUGGESTION'},'A 已移动。接下来可以把这个位置固定下来。 / A moved. Keep this position next.');break;
+    case 0: act({type:'ACCEPT_SUGGESTION'},'A moved. Next, pin it to keep this position.');break;
     case 1: draft({type:'object',id:'a'});break;
-    case 2: act({type:'CONFIRM_BOUNDARY'},'A 已固定。再试一次 A 的建议，看看这条规则是否生效。');setTool('select');break;
+    case 2: act({type:'CONFIRM_BOUNDARY'},'A is pinned. Try another suggestion for A to test the boundary.');setTool('select');break;
     case 3: showCandidate('a','layout');break;
     case 4: state=dispatch(state,{type:'SELECT',id:'b'});showCandidate('b','layout');break;
-    default: guide.active=false;render();notify('现在可以自己试：点选展板，或圈选一片暂停区域。 / Select a panel, or draw a pause area.');
+    default: guide.active=false;render();notify('Select a panel, or draw a pause area to explore on your own.');
   }
 });
 

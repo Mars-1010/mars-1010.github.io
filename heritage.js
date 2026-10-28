@@ -1,6 +1,6 @@
 import * as THREE from './vendor/three.module.js';
-import {createGeyuan,createDaci,createDougong} from './heritage-models.js';
-import {initWindowLab} from './heritage-windows.js';
+import {createGeyuan,createDaci,createDougong} from './heritage-models.js?v=20261028-en';
+import {initWindowLab} from './heritage-windows.js?v=20261028-en';
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -22,12 +22,12 @@ function startViewer(){
  let current=null,frameId=0,last=performance.now(),visible=true,disposed=false,drag=null,touchDistance=null,points=[];
  const lowMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
  const copy={
-  all:['01 / THE WHOLE','A frame beneath the roof.','Drag to turn. Select a layer to see how the building comes together.','拖动旋转，滚轮缩放。点选构件查看。'],
-  roof:['02 / ROOF','An extended silhouette.','Curved eaves project beyond the walls. The tiled surfaces, ridge and rafters are separate parts of the roof assembly.','看屋顶轮廓、出檐与椽架的关系。'],
-  brackets:['03 / DOUGONG','A layered connection.','Crossing timber arms and bearing blocks project outward beneath the eaves, connecting the roof assembly and column frame.','交错的拱与承托木块逐层出挑，连接屋顶与柱架。'],
-  frame:['04 / TIMBER FRAME','Read the clear space.','Columns and horizontal beams define the hall. Lift the roof or move the section plane to look inside.','柱与梁界定殿内空间；剖切后查看内部构架。'],
-  walls:['05 / ENCLOSURE','Between the columns.','Lattice panels and wall surfaces enclose the frame. The Geyuan window study below follows the patterns recorded in the survey.','木构之间，是格扇与墙面。向下探索花窗纹样。'],
-  base:['06 / PLATFORM','The building meets the ground.','The platform and steps form the base. Daci Pavilion sits on a much taller masonry platform than Wenshu Hall.','对比大慈阁高台基与文殊殿的平台比例。']
+  all:['01 / THE WHOLE','A frame beneath the roof.','Drag to turn, scroll to zoom. Select a layer to see how the building comes together.'],
+  roof:['02 / ROOF','An extended silhouette.','Curved eaves project beyond the walls. The tiled surfaces, ridge and rafters are separate parts of the roof assembly.'],
+  brackets:['03 / DOUGONG','A layered connection.','Crossing timber arms and bearing blocks project outward beneath the eaves, connecting the roof assembly and column frame.'],
+  frame:['04 / TIMBER FRAME','Read the clear space.','Columns and horizontal beams define the hall. Lift the roof or move the section plane to look inside.'],
+  walls:['05 / ENCLOSURE','Between the columns.','Lattice panels and wall surfaces enclose the frame. The Geyuan window study below follows the patterns recorded in the survey.'],
+  base:['06 / PLATFORM','The building meets the ground.','The platform and steps form the base. Daci Pavilion sits on a much taller masonry platform than Wenshu Hall.']
  };
  function getModel(name){
   if(models[name])return models[name];
@@ -38,7 +38,7 @@ function startViewer(){
   for(const layer of m.userData.layers){layer.base=layer.group.position.clone();}
   models[name]=m;scene.add(m);return m;
  }
- function updateCopy(part){const detail={all:['01 / DOUGONG','Arms and bearing blocks.','Turn the assembly to follow its crossing members. Separate lifts the layers apart.','旋转查看拱臂交错与承托关系，拆解查看层次。'],roof:['02 / UPPER BEARERS','Above the projecting arms.','Horizontal members sit above the bracket arms in this assembly study.','上层横材与出挑拱臂的承托关系。'],frame:['04 / COLUMN HEAD','Start at the column.','Follow the assembly upward from the column head to the crossing arms.','由柱头向上，查看层叠出挑的构件关系。']};const c=(state.building==='dougong'&&detail[part])||copy[part]||copy.all;$('#part-index').textContent=c[0];$('#part-name').textContent=c[1];$('#part-description').replaceChildren(document.createTextNode(c[2]),document.createElement('br'));const zh=document.createElement('span');zh.lang='zh';zh.textContent=c[3];$('#part-description').append(zh);}
+ function updateCopy(part){const detail={all:['01 / DOUGONG','Arms and bearing blocks.','Turn the assembly to follow its crossing members. Separate lifts the layers apart.'],roof:['02 / UPPER BEARERS','Above the projecting arms.','Horizontal members sit above the bracket arms in this assembly study.'],frame:['04 / COLUMN HEAD','Start at the column.','Follow the assembly upward from the column head to the crossing arms.']};const c=(state.building==='dougong'&&detail[part])||copy[part]||copy.all;$('#part-index').textContent=c[0];$('#part-name').textContent=c[1];$('#part-description').textContent=c[2];}
  function selectPart(part){state.part=part;for(const b of $$('[data-part]')){const on=b.dataset.part===part;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on);}updateCopy(part);updateMaterials();}
  function updateMaterials(){if(!current)return;for(const m of current.userData.materials){const chosen=state.part==='all'||m.userData.category===state.part;const alpha=state.mode==='points'?0:chosen?1:.1;m.opacity=alpha;m.transparent=alpha<1;m.depthWrite=alpha>=1;m.clippingPlanes=state.mode==='section'&&m.userData.category!=='base'?[clip]:[];m.clipShadows=true;if(m.emissive)m.emissive.set(chosen&&state.part!=='all'?0x28192f:0x000000);m.needsUpdate=true;}for(const p of points){p.visible=state.mode==='points';p.material.uniforms.uAlpha.value=state.part==='all'||p.userData.category===state.part?1:.13;}}
  function showBuilding(name){
@@ -46,9 +46,9 @@ function startViewer(){
   const isDaci=name==='daci',isDetail=name==='dougong';
   const box=new THREE.Box3().setFromObject(current),size=box.getSize(new THREE.Vector3());state.targetY=isDetail?size.y*.5:isDaci?5.8:3.8;state.distance=isDetail?size.length()*2.5:isDaci?34:29;state.yaw=isDetail?.6:.5;state.pitch=isDetail?1.1:1.28;
   orbit.targetY=state.targetY;orbit.distance=state.distance;orbit.yaw=state.yaw;orbit.pitch=state.pitch;
-  $('#building-name').textContent=isDetail?'Inside the dougong.':isDaci?'Daci Pavilion.':'Wenshu Hall.';$('#building-cn').textContent=isDetail?'文殊殿 · 斗拱构造关系示意':isDaci?'大慈阁 · 三层楼阁':'阁院寺 · 文殊殿';
-  $('#dougong-view').innerHTML=isDetail?'Return to Wenshu Hall <span>↖</span><small>返回文殊殿</small>':'Look closer: dougong <span>↗</span><small>斗拱</small>';
-  for(const b of $$('[data-part]')){b.hidden=isDetail&&['walls','base'].includes(b.dataset.part);if(b.dataset.part==='roof')b.innerHTML=isDetail?'Bearers <small>承托</small>':'Roof <small>屋顶</small>';if(b.dataset.part==='frame')b.innerHTML=isDetail?'Column <small>柱头</small>':'Timber <small>梁柱</small>';}
+  $('#building-name').textContent=isDetail?'Inside the dougong.':isDaci?'Daci Pavilion.':'Wenshu Hall.';$('#building-cn').textContent=isDetail?'Wenshu Hall · Assembly study':isDaci?'Three-storey pavilion':'Geyuan Temple · Main hall';
+  $('#dougong-view').innerHTML=isDetail?'Return to Wenshu Hall <span>↖</span>':'Look closer: dougong <span>↗</span>';
+  for(const b of $$('[data-part]')){b.hidden=isDetail&&['walls','base'].includes(b.dataset.part);if(b.dataset.part==='roof')b.innerHTML=isDetail?'Bearers':'Roof';if(b.dataset.part==='frame')b.innerHTML=isDetail?'Column':'Timber';}
   for(const b of $$('[data-building]')){const on=b.dataset.building===(isDetail?'geyuan':name);b.classList.toggle('active',on);b.setAttribute('aria-pressed',on);}
   selectPart('all');setMode('whole');$('#model-loading').hidden=true;
  }

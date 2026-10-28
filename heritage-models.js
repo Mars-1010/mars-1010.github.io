@@ -360,14 +360,14 @@ function railing(P, width, z, y, red = false) {
 
 export function createGeyuan(T) {
   const M = palette(T), model = makeModel(T, 'Geyuan Temple · Wenshu Hall', M);
-  model.userData.title = '阁院寺 · 文殊殿';
+  model.userData.title = 'Geyuan Temple · Wenshu Hall';
   model.userData.focus = new T.Vector3(0, 3.6, 0);
   const B = new Parts(T, M), W = new Parts(T, M), F = new Parts(T, M), D = new Parts(T, M), R = new Parts(T, M);
-  const base = makeLayer(T, model, 'base', '台基', [0, 0, 0]);
-  const walls = makeLayer(T, model, 'walls', '墙体与门窗', [0, .15, 0]);
-  const frame = makeLayer(T, model, 'frame', '柱梁木构', [0, 1.15, 0]);
-  const brackets = makeLayer(T, model, 'brackets', '斗拱', [0, 2.7, 0]);
-  const roofLayer = makeLayer(T, model, 'roof', '屋面与椽架', [0, 4.2, 0]);
+  const base = makeLayer(T, model, 'base', 'Platform', [0, 0, 0]);
+  const walls = makeLayer(T, model, 'walls', 'Walls, doors and windows', [0, .15, 0]);
+  const frame = makeLayer(T, model, 'frame', 'Timber columns and beams', [0, 1.15, 0]);
+  const brackets = makeLayer(T, model, 'brackets', 'Dougong', [0, 2.7, 0]);
+  const roofLayer = makeLayer(T, model, 'roof', 'Roof and rafters', [0, 4.2, 0]);
   stoneCourses(B, 12.5, 12.1, 0, .48);
   B.box(12.7, .13, 12.3, [0, .52, 0], 'stoneLight', 'base');
   for (let j = 0; j < 3; j++) B.box(3.4, .15, 1.15 - j * .32, [0, .075 + j * .15, 6.5 - j * .15], 'stoneLight', 'base');
@@ -436,14 +436,14 @@ export function createGeyuan(T) {
 
 export function createDaci(T) {
   const M = palette(T), model = makeModel(T, 'Daci Pavilion', M);
-  model.userData.title = '大慈阁';
+  model.userData.title = 'Daci Pavilion';
   model.userData.focus = new T.Vector3(0, 6.1, 0);
   const B = new Parts(T, M), W = new Parts(T, M), F = new Parts(T, M), D = new Parts(T, M), R = new Parts(T, M);
-  const base = makeLayer(T, model, 'base', '高台与踏步', [0, 0, 0]);
-  const walls = makeLayer(T, model, 'walls', '朱墙与槅扇', [0, .2, 0]);
-  const frame = makeLayer(T, model, 'frame', '柱廊与木构', [0, 1.1, 0]);
-  const brackets = makeLayer(T, model, 'brackets', '层檐斗拱', [0, 2.3, 0]);
-  const roofLayer = makeLayer(T, model, 'roof', '三重屋面', [0, 3.8, 0]);
+  const base = makeLayer(T, model, 'base', 'Raised platform and steps', [0, 0, 0]);
+  const walls = makeLayer(T, model, 'walls', 'Red walls and lattice panels', [0, .2, 0]);
+  const frame = makeLayer(T, model, 'frame', 'Colonnade and timber frame', [0, 1.1, 0]);
+  const brackets = makeLayer(T, model, 'brackets', 'Tiered eave brackets', [0, 2.3, 0]);
+  const roofLayer = makeLayer(T, model, 'roof', 'Three roof tiers', [0, 3.8, 0]);
   stoneCourses(B, 10.7, 9.2, 0, 2.55);
   B.box(11.05, .18, 9.55, [0, 2.58, 0], 'stoneLight', 'base');
   // A broad, straight central stair climbs the high masonry podium.
@@ -511,12 +511,12 @@ export function createDaci(T) {
 
 export function createDougong(T) {
   const M = palette(T), model = makeModel(T, 'Geyuan · bracket study', M);
-  model.userData.title = '斗拱 · 构件关系';
+  model.userData.title = 'Dougong · Member relationships';
   model.userData.focus = new T.Vector3(0, 1.65, 0);
   const F = new Parts(T, M), D = new Parts(T, M), R = new Parts(T, M);
-  const frame = makeLayer(T, model, 'frame', '柱头', [0, 0, 0]);
-  const brackets = makeLayer(T, model, 'brackets', '交叠拱臂与斗', [0, .9, 0]);
-  const roofLayer = makeLayer(T, model, 'roof', '承托横材', [0, 1.8, 0]);
+  const frame = makeLayer(T, model, 'frame', 'Column head', [0, 0, 0]);
+  const brackets = makeLayer(T, model, 'brackets', 'Crossing arms and bearing blocks', [0, .9, 0]);
+  const roofLayer = makeLayer(T, model, 'roof', 'Horizontal bearers', [0, 1.8, 0]);
   F.column(.32, 1.2, [0, .6, 0], 'timber', 'frame');
   F.box(.63, .2, .63, [0, 1.22, 0], 'timberDark', 'frame');
   bracket(D, 0, 1.34, 0, 1.4, 0, false);

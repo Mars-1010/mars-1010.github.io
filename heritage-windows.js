@@ -1,18 +1,18 @@
 const MOTIFS = [
-  { name: 'A window within a window', cn: '复合花心', kind: 'composite', family: 'Curved and straight members / 曲直相织', copy: 'A horizontal rail divides the panel; small openwork details sit inside a larger lattice.', unit: 'One opening, framed by curved members / 曲线围合的花心' },
-  { name: 'Sixfold rosette', cn: '六瓣攒簇', kind: 'rosette', family: 'Sixfold repetition / 六向重复', copy: 'Follow one sixfold unit, then see how neighbouring units share the same slender members.', unit: 'A sixfold repeating unit / 六向放射的重复单元' },
-  { name: 'A denser rhythm', cn: '密簇六瓣', kind: 'dense', family: 'Closely repeated rosettes / 花心密排', copy: 'The same rhythm becomes finer as the repeating units move closer together.', unit: 'A small rosette and its neighbours / 花心与相邻单元' },
-  { name: 'Flowers on the diagonal', cn: '斜格团花', kind: 'flower', family: 'Diagonal members / 斜向窗棂', copy: 'Diagonal lines frame small rounded openings. Light reveals both the lattice and the space between it.', unit: 'A rounded opening inside a diagonal grid / 斜格中的曲线开口' },
-  { name: 'Crossed in eight directions', cn: '四交八斜', kind: 'eight', family: 'Horizontal, vertical, diagonal / 横、竖与斜向', copy: 'Trace the straight members in three directions. Their crossings create a network of small triangular openings.', unit: 'A crossing of straight members / 三向窗棂的交会' },
-  { name: 'An open diagonal', cn: '斜格窗棂', kind: 'diamond', family: 'An open diagonal rhythm / 疏朗斜格', copy: 'A simpler diagonal rhythm makes the changing shadows easier to read.', unit: 'One diamond-shaped opening / 一组菱形开口' }
+  { name: 'A window within a window', label: 'Nested', kind: 'composite', family: 'Curved and straight members', copy: 'A horizontal rail divides the panel; small openwork details sit inside a larger lattice.', unit: 'One opening, framed by curved members' },
+  { name: 'Sixfold rosette', label: 'Rosette', kind: 'rosette', family: 'Sixfold repetition', copy: 'Follow one sixfold unit, then see how neighbouring units share the same slender members.', unit: 'A sixfold repeating unit' },
+  { name: 'A denser rhythm', label: 'Dense', kind: 'dense', family: 'Closely repeated rosettes', copy: 'The same rhythm becomes finer as the repeating units move closer together.', unit: 'A small rosette and its neighbours' },
+  { name: 'Flowers on the diagonal', label: 'Floral', kind: 'flower', family: 'Diagonal members', copy: 'Diagonal lines frame small rounded openings. Light reveals both the lattice and the space between it.', unit: 'A rounded opening inside a diagonal grid' },
+  { name: 'Crossed in eight directions', label: 'Crossed', kind: 'eight', family: 'Horizontal, vertical, diagonal', copy: 'Trace the straight members in three directions. Their crossings create a network of small triangular openings.', unit: 'A crossing of straight members' },
+  { name: 'An open diagonal', label: 'Diamond', kind: 'diamond', family: 'An open diagonal rhythm', copy: 'A simpler diagonal rhythm makes the changing shadows easier to read.', unit: 'One diamond-shaped opening' }
 ];
 
 const memberInfo = {
-  petal: ['Rosette / 花心', 'A sixfold repeating unit / 六向放射的重复单元'],
-  diagonal: ['Diagonal / 斜棂', 'Slender diagonal members connect the pattern / 斜向木条串联纹样'],
-  horizontal: ['Horizontal / 横棂', 'Horizontal members hold the rhythm across the panel / 横向木条组织节奏'],
-  vertical: ['Vertical / 竖棂', 'Vertical members divide the openwork / 竖向木条分隔开口'],
-  curved: ['Curved member / 曲棂', 'Curves soften the space inside a straight lattice / 曲线围出柔和的空隙']
+  petal: ['Rosette', 'A sixfold repeating unit'],
+  diagonal: ['Diagonal', 'Slender diagonal members connect the pattern'],
+  horizontal: ['Horizontal', 'Horizontal members hold the rhythm across the panel'],
+  vertical: ['Vertical', 'Vertical members divide the openwork'],
+  curved: ['Curved member', 'Curves soften the space inside a straight lattice']
 };
 
 function n(v) { return Number(v.toFixed(2)); }
@@ -103,7 +103,7 @@ export function initWindowLab(container) {
   let raf = 0;
   container.classList.add('window-lab');
   container.innerHTML = `
-    <div class="wl-topline"><span>GEYUAN · WENSHU HALL / 阁院寺 · 文殊殿</span><span>LIGHT & OPENWORK / 光与花窗</span></div>
+    <div class="wl-topline"><span>GEYUAN · WENSHU HALL</span><span>LIGHT & OPENWORK</span></div>
     <div class="wl-layout">
       <div class="wl-stage" id="${uid}-panel" tabindex="0" role="tabpanel" aria-labelledby="${uid}-tab-${index}">
         <svg class="wl-svg" viewBox="0 0 900 760" role="img" aria-label="An interactive sixfold wooden lattice, with a changing cast shadow">
@@ -126,25 +126,25 @@ export function initWindowLab(container) {
             </g>
           </g>
         </svg>
-        <div class="wl-stage-caption"><span class="wl-readout">Sixfold repetition / 六向重复</span><span>Drag light → follow the shadow<br>移动光线，观察窗影</span></div>
-        <button type="button" class="wl-reference-toggle" aria-pressed="false">Survey detail / 测绘细部 <span>↗</span></button>
-        <figure class="wl-reference" hidden><img src="${referencePath(index)}" alt="Original photographed Geyuan Temple wooden lattice from the architectural survey board"><figcaption>Survey-board detail / 原测绘展板细部</figcaption></figure>
-        <div class="wl-hover-caption" aria-hidden="true"><span>◎</span><p>Hover to follow one repeating unit<br>移入纹样，查看重复单元</p></div>
+        <div class="wl-stage-caption"><span class="wl-readout">Sixfold repetition</span><span>Drag light → follow the shadow</span></div>
+        <button type="button" class="wl-reference-toggle" aria-pressed="false">Survey detail<span>↗</span></button>
+        <figure class="wl-reference" hidden><img src="${referencePath(index)}" alt="Original photographed Geyuan Temple wooden lattice from the architectural survey board"><figcaption>Survey-board detail</figcaption></figure>
+        <div class="wl-hover-caption" aria-hidden="true"><span>◎</span><p>Hover to follow one repeating unit</p></div>
       </div>
       <div class="wl-controls">
         <p class="wl-index">02 / 06</p>
         <h3 class="wl-title">Sixfold<br>rosette.</h3>
-        <p class="wl-cn">六瓣攒簇</p>
+        <p class="wl-cn">Sixfold repetition</p>
         <p class="wl-copy">${MOTIFS[index].copy}</p>
-        <div class="wl-view-controls"><button type="button" class="wl-parts" aria-pressed="false"><span>＋</span> Trace the members / 看窗棂</button></div>
-        <label class="wl-range"><span>Separate the units <small>拆看纹样</small><output class="wl-spread-output">0%</output></span><input class="wl-spread" type="range" min="0" max="100" value="0" aria-label="Separate the repeating units"><span class="wl-range-ends"><small>Joined / 组合</small><small>Apart / 分开</small></span></label>
-        <label class="wl-range"><span>Light angle <small>光线角度</small><output class="wl-light-output">−24°</output></span><input class="wl-light" type="range" min="-70" max="70" value="-24" aria-label="Light angle"><span class="wl-range-ends"><small>←</small><small>→</small></span></label>
+        <div class="wl-view-controls"><button type="button" class="wl-parts" aria-pressed="false"><span>＋</span> Trace the members</button></div>
+        <label class="wl-range"><span>Separate the units<output class="wl-spread-output">0%</output></span><input class="wl-spread" type="range" min="0" max="100" value="0" aria-label="Separate the repeating units"><span class="wl-range-ends"><small>Joined</small><small>Apart</small></span></label>
+        <label class="wl-range"><span>Light angle<output class="wl-light-output">−24°</output></span><input class="wl-light" type="range" min="-70" max="70" value="-24" aria-label="Light angle"><span class="wl-range-ends"><small>←</small><small>→</small></span></label>
         <p class="wl-unit-caption">${MOTIFS[index].unit}</p>
-        <p class="wl-keyboard">← → Select a unit · Esc clear<br>方向键选择单元，Esc 取消</p>
+        <p class="wl-keyboard">← → Select a unit · Esc clear</p>
       </div>
     </div>
-    <div class="wl-motif-list" role="tablist" aria-label="Window patterns from the Geyuan Temple survey board">${MOTIFS.map((m, i) => `<button class="wl-motif${i === index ? ' active' : ''}" type="button" role="tab" id="${uid}-tab-${i}" aria-controls="${uid}-panel" aria-selected="${i === index}" tabindex="${i === index ? 0 : -1}" data-motif="${i}"><span class="wl-motif-thumb"><img src="${referencePath(i)}" alt="" loading="lazy"></span><span class="wl-motif-number">0${i + 1}</span><span class="wl-motif-name">${m.cn}</span></button>`).join('')}</div>
-    <p class="wl-note">The survey records six families of window patterns. These interactive studies explore their repeating geometry; the photographs retain the original detail.<br>测绘记录将花窗归为六类。互动图形用于观察纹样的重复关系，细部以原始照片为参照。</p>`;
+    <div class="wl-motif-list" role="tablist" aria-label="Window patterns from the Geyuan Temple survey board">${MOTIFS.map((m, i) => `<button class="wl-motif${i === index ? ' active' : ''}" type="button" role="tab" id="${uid}-tab-${i}" aria-controls="${uid}-panel" aria-selected="${i === index}" tabindex="${i === index ? 0 : -1}" data-motif="${i}"><span class="wl-motif-thumb"><img src="${referencePath(i)}" alt="" loading="lazy"></span><span class="wl-motif-number">0${i + 1}</span><span class="wl-motif-name">${m.label}</span></button>`).join('')}</div>
+    <p class="wl-note">The survey records six families of window patterns. These interactive studies explore their repeating geometry; the photographs retain the original detail.</p>`;
 
   const svg = container.querySelector('.wl-svg');
   const lattice = container.querySelector('.wl-lattice');
@@ -187,7 +187,7 @@ export function initWindowLab(container) {
       stage.classList.add('wl-has-selection');
     } else {
       caption.textContent = MOTIFS[index].unit;
-      hoverCaption.innerHTML = 'Hover to follow one repeating unit<br>移入纹样，查看重复单元';
+      hoverCaption.innerHTML = 'Hover to follow one repeating unit';
       stage.classList.remove('wl-has-selection');
     }
     schedule();
@@ -202,7 +202,7 @@ export function initWindowLab(container) {
     container.querySelector('.wl-index').textContent = `0${index + 1} / 06`;
     const title = container.querySelector('.wl-title');
     title.textContent = motif.name + '.';
-    container.querySelector('.wl-cn').textContent = motif.cn;
+    container.querySelector('.wl-cn').textContent = motif.family;
     container.querySelector('.wl-copy').textContent = motif.copy;
     readout.textContent = motif.family;
     caption.textContent = motif.unit;
@@ -239,7 +239,7 @@ export function initWindowLab(container) {
     reference = !reference;
     e.currentTarget.setAttribute('aria-pressed', String(reference));
     container.querySelector('.wl-reference').hidden = !reference;
-    e.currentTarget.innerHTML = reference ? 'Back to lattice / 返回窗棂 <span>×</span>' : 'Survey detail / 测绘细部 <span>↗</span>';
+    e.currentTarget.innerHTML = reference ? 'Back to lattice<span>×</span>' : 'Survey detail<span>↗</span>';
     stage.classList.toggle('wl-show-reference', reference);
   }, { signal });
   lattice.addEventListener('pointerover', e => {

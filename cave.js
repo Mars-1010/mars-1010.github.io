@@ -126,7 +126,7 @@ function command(text){
  if(/记忆|痕迹|光迹|留下|memory|echo|trace/.test(t)){setMode('memory');changes++;}
  if(/清除|擦除|clear|erase/.test(t)){world?.clearMemory();changes++;}
  if(/重置|reset/.test(t)){world?.clearMemory();setMode('ripple');selectIntent('curious');apply({pinch:.45,x:.5,y:.5});changes++;}
- $('#command-message').textContent=changes?`Applied preset mapping → ${state.mode} / energy ${Math.round(state.energy*100)}%. No language model was called.`:'No matching preset. Try “calmer”, “open a portal” or “留下发光的记忆”.';
+ $('#command-message').textContent=changes?`Applied preset mapping → ${state.mode} / energy ${Math.round(state.energy*100)}%. No language model was called.`:'No matching preset. Try “calmer”, “open a portal” or “leave a light trace”.';
 }
 $('#command-form').addEventListener('submit',event=>{event.preventDefault();command($('#scene-command').value);});
 for(const button of document.querySelectorAll('[data-command]'))button.addEventListener('click',()=>{$('#scene-command').value=button.dataset.command;command(button.dataset.command);});
