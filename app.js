@@ -97,8 +97,8 @@ const hero=new AssistantPresence($('#hero-canvas'));worlds.push(hero);
 const assistantStudy=initAssistantStudy(hero,{paused:()=>paused,reducedMotion:()=>reducedMotion.matches});
 window.addEventListener('pagehide',e=>{if(!e.persisted){assistantStudy.dispose();hero.dispose();}});
 
-const projectYears={immersive:'2023',heritage:'2021',game:'2025',capstone:'2026'};
-const coverCaptions={immersive:'DAMO CAVE / NANJING',heritage:'GEYUAN TEMPLE / ORIGINAL RECONSTRUCTION',game:'GALAGA / PROTOTYPE FOOTAGE',capstone:'TEAM PROTOTYPE / IMAGE DETECTION'};
+const projectYears={immersive:'2023',heritage:'2021',game:'2025',capstone:'2026',boundaries:'2026'};
+const coverCaptions={immersive:'DAMO CAVE / NANJING',heritage:'GEYUAN TEMPLE / ORIGINAL RECONSTRUCTION',game:'GALAGA / PROTOTYPE FOOTAGE',capstone:'TEAM PROTOTYPE / IMAGE DETECTION',boundaries:'BOUNDARIES / TRY THE PROTOTYPE'};
 for(const p of projects){
   const button=document.createElement(p.href?'a':'button');button.className='project-card reveal';button.dataset.project=p.id;button.setAttribute('aria-label',`Explore ${p.title} — ${p.subtitle}`);if(p.href)button.href=p.href;
   button.innerHTML=`<div class="project-art">${p.image?`<img class="project-reference" src="${p.image}" alt="${p.imageAlt||'Blue projected light across the Damo Cave interior, credited to Fengyuzhu'}" loading="lazy">`:'<canvas aria-hidden="true"></canvas>'}<span class="project-num">${p.number} /</span><span class="art-caption">${coverCaptions[p.id]}</span><span class="project-arrow" aria-hidden="true">↗</span></div><div class="project-meta"><div><h3>${p.title}</h3><p>${p.subtitle}</p></div><span class="project-year">${projectYears[p.id]}</span></div>`;
