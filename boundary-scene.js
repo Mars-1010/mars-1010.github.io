@@ -26,13 +26,16 @@ export class BoundaryScene {
     this.view = 'perspective';
     this.azimuth = .31;
     this.elevation = .61;
-    this.distance = 11.9;
+    this.distance = 10.2;
     this.planScale = 6.15;
     this.visible = true;
     this.disposed = false;
     this.dirty = true;
     this.textures = new Set();
     this.panelObjects = new Map();
+    this.panelMotions = new Map();
+    this.motionFrame = null;
+    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     this.hitObjects = [];
     this.raycaster = new THREE.Raycaster();
     this.pointer = new THREE.Vector2();
@@ -312,12 +315,23 @@ export class BoundaryScene {
 
   update(snapshot) {
     if (this.disposed) return;
+    const previousPanels = this.snapshot.panels;
+    const now = performance.now();
+    this._advanceMotion(now);
     this.snapshot = { ...this.snapshot, ...snapshot, panels: snapshot.panels || this.snapshot.panels };
     if (this.renderer) {
       for (const panel of this.snapshot.panels) {
-        if (!this.panelObjects.has(panel.id)) this._createPanel(panel);
+        const existed = this.panelObjects.has(panel.id);
+        if (!existed) this._createPanel(panel);
         const object = this.panelObjects.get(panel.id);
-        object.group.position.set(panel.x, 0, panel.z);
+        const previous = previousPanels.find(p => p.id === panel.id);
+        const moved = previous && (previous.x !== panel.x || previous.z !== panel.z);
+        if (existed && moved && !this.reducedMotion.matches) {
+          this.panelMotions.set(panel.id, { x: object.group.position.x, z: object.group.position.z, toX: panel.x, toZ: panel.z, start: now });
+        } else if (!this.panelMotions.has(panel.id) || this.reducedMotion.matches) {
+          this.panelMotions.delete(panel.id);
+          object.group.position.set(panel.x, 0, panel.z);
+        }
         object.frame.material.color.set(panel.id === this.snapshot.selected ? '#9281a6' : '#aba398');
         if (object.label !== panel.label) {
           const previous = object.texture;
@@ -327,16 +341,42 @@ export class BoundaryScene {
         }
       }
       this._clear(this.markers); this._clear(this.proposals);
+      this.selectionMarker = null;
       const selected = this.snapshot.panels.find(p => p.id === this.snapshot.selected);
       if (selected) {
-        this._rectangle({ x1: selected.x - .65, x2: selected.x + .65, z1: selected.z - .24, z2: selected.z + .66 }, '#8d79a7', false, this.markers, .055);
-        this._outline([[selected.x - .6, .25, selected.z + .06], [selected.x - .6, 2.35, selected.z + .06], [selected.x + .6, 2.35, selected.z + .06], [selected.x + .6, .25, selected.z + .06]], '#8d79a7', false, this.markers, .8);
+        this.selectionMarker = new THREE.Group(); this.markers.add(this.selectionMarker);
+        this._rectangle({ x1: -.65, x2: .65, z1: -.24, z2: .66 }, '#8d79a7', false, this.selectionMarker, .055);
+        this._outline([[-.6, .25, .06], [-.6, 2.35, .06], [.6, 2.35, .06], [.6, .25, .06]], '#8d79a7', false, this.selectionMarker, .8);
       }
       this._boundary(this.snapshot.boundary);
       this._boundary(this.snapshot.draftBoundary, true);
       this._proposal();
+      this._advanceMotion(now);
+      this._queueMotion();
     }
     this._requestRender();
+  }
+
+  _advanceMotion(now) {
+    for (const [id, motion] of this.panelMotions) {
+      const object = this.panelObjects.get(id);
+      if (!object) { this.panelMotions.delete(id); continue; }
+      const progress = this.reducedMotion.matches ? 1 : clamp((now - motion.start) / 450, 0, 1);
+      const ease = progress * progress * (3 - 2 * progress);
+      object.group.position.set(motion.x + (motion.toX - motion.x) * ease, 0, motion.z + (motion.toZ - motion.z) * ease);
+      if (progress === 1) this.panelMotions.delete(id);
+    }
+    const selected = this.panelObjects.get(this.snapshot.selected);
+    if (this.selectionMarker && selected) this.selectionMarker.position.copy(selected.group.position);
+  }
+
+  _queueMotion() {
+    if (this.disposed || this.motionFrame !== null || !this.panelMotions.size) return;
+    this.motionFrame = requestAnimationFrame(now => {
+      this.motionFrame = null;
+      if (this.disposed) return;
+      this._advanceMotion(now); this._requestRender(); this._queueMotion();
+    });
   }
 
   setTool(tool) {
@@ -353,7 +393,7 @@ export class BoundaryScene {
   }
 
   resetView() {
-    this.azimuth = .31; this.elevation = .61; this.distance = 11.9; this.planScale = 6.15;
+    this.azimuth = .31; this.elevation = .61; this.distance = 10.2; this.planScale = 6.15;
     this._placeCamera(); this._requestRender();
   }
 
@@ -362,7 +402,7 @@ export class BoundaryScene {
     const aspect = Math.max(.3, (this.width || 900) / (this.height || 650));
     const radius = this.distance * (aspect < 1.15 ? 1.15 / aspect : 1);
     this.camera.position.set(Math.sin(this.azimuth) * Math.cos(this.elevation) * radius, Math.sin(this.elevation) * radius + .6, Math.cos(this.azimuth) * Math.cos(this.elevation) * radius);
-    this.camera.aspect = aspect; this.camera.lookAt(0, .65, 0); this.camera.updateProjectionMatrix();
+    this.camera.aspect = aspect; this.camera.lookAt(0, .85, 0); this.camera.updateProjectionMatrix();
     const halfW = Math.max(this.planScale, this.planScale * aspect / 1.45), halfH = halfW / aspect;
     Object.assign(this.planCamera, { left: -halfW, right: halfW, top: halfH, bottom: -halfH });
     this.planCamera.updateProjectionMatrix();
@@ -514,6 +554,8 @@ export class BoundaryScene {
   dispose() {
     if (this.disposed) return;
     this._cancelPointer(); this.disposed = true;
+    if (this.motionFrame !== null) cancelAnimationFrame(this.motionFrame);
+    this.motionFrame = null; this.panelMotions.clear();
     this.resizeObserver?.disconnect(); this.intersectionObserver?.disconnect();
     for (const [name, handler] of Object.entries(this.handlers)) this.canvas.removeEventListener(name, handler);
     this.canvas.style.touchAction = this.originalTouchAction;
