@@ -1,5 +1,0 @@
-Jianxuan Shao / Selected project media
-
-Game Fellows: original supplied development recordings and poster frames. The existing edited files are retained unchanged. The participant-style identifier shown in the original HUD is a development identifier, not evidence of a recruited participant study. The game foundation credit and MIT license are retained at assets/game-fellow/game-foundation-license.txt.
-
-Damo Cave: installation photographs and an original-film frame are credited to Fengyuzhu, 2023. Source images remain unchanged; CSS crops screenshots for presentation. Original-film source and capture provenance are retained at assets/cave/damo-film-frames-source.txt.
