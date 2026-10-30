@@ -1,0 +1,10 @@
+Source: https://www.manamana.net/video/detail?id=2176167#!zh
+Title: 一苇渡达摩石窟光影艺术馆
+Publisher/credit shown on source page: 风语筑; posted 2023-04-25
+Capture date: 2026-10-23 Australia/Sydney
+Method: visible original player, native seek and pause UI, documented CUA browser screenshot clip of the observed 805 x 453 video region. No media download; no hidden media URL extraction. MANA watermark retained.
+
+damo-film-red-gold.jpg: approx 00:59 of 02:23. Seated figure with red/gold luminous projected outlines and surrounding marks. Captured visible frame; JPEG 805x453.
+damo-film-floor.jpg: paused at 01:51.24 of 02:23 (media duration 143.807 s). Blue/white volumetric shafts, rocky passage and concentric floor light rings. JPEG 805x453.
+
+These are source-project documentation frames. Future interactive overlays are newly implemented website prototypes and must not be described as features verified in the original installation.
