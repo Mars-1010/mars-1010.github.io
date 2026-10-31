@@ -10,5 +10,5 @@ const baseProjects = [
 const order = ['game','immersive','heritage','capstone','boundaries'];
 export const projects = order.map((id,index) => {
  const p = baseProjects.find(item=>item.id===id);
- return {...p,number:String(index+1).padStart(2,'0'),href:'/Selen/'+p.href};
+ return {...p,number:String(index+1).padStart(2,'0'),href:'/selen/'+p.href};
 });
