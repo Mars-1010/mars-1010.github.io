@@ -43,3 +43,40 @@ film.addEventListener('timeupdate',()=>{
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden)film.pause();});
 window.addEventListener('pagehide',event=>{if(!event.persisted&&objectURL)URL.revokeObjectURL(objectURL);});
+
+const sampleFrame = document.querySelector('#sample-frame');
+const sampleClip = document.querySelector('#sample-clip');
+const samplePrediction = document.querySelector('#sample-prediction');
+const sampleButtons = [...document.querySelectorAll('[data-sample]')];
+const demoSamples = {
+  parrot: {name: 'Parrot', time: 5, result: 'Predicted AI-generated · Fusion AI-generation score 88.71%'},
+  speedboat: {name: 'Speedboat', time: 48, result: 'Predicted real photo · Fusion AI-generation score 4.82%'},
+};
+let selectedSample = demoSamples.parrot;
+
+function seekSampleFrame() {
+  if (sampleFrame.readyState >= HTMLMediaElement.HAVE_METADATA) {
+    sampleFrame.currentTime = selectedSample.time;
+  }
+}
+
+sampleFrame.addEventListener('loadedmetadata', seekSampleFrame);
+film.addEventListener('loadedmetadata', () => {
+  if (!sampleFrame.getAttribute('src')) sampleFrame.src = source.src;
+});
+sampleFrame.addEventListener('error', () => { sampleFrame.hidden = true; });
+
+for (const button of sampleButtons) {
+  button.addEventListener('click', () => {
+    selectedSample = demoSamples[button.dataset.sample];
+    for (const item of sampleButtons) item.setAttribute('aria-pressed', String(item === button));
+    samplePrediction.textContent = '';
+    sampleFrame.setAttribute('aria-label', selectedSample.name + ' sample shown in the team demo');
+    sampleClip.href = mediaURL.href + '#t=' + selectedSample.time;
+    seekSampleFrame();
+  });
+}
+
+document.querySelector('#sample-reveal').addEventListener('click', () => {
+  samplePrediction.textContent = selectedSample.result;
+});

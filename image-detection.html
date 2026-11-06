@@ -8,9 +8,29 @@
 </head>
 <body class="capstone-page">
 <a class="skip" href="#main">Skip to content</a>
-<header class="case-nav"><a class="back" href="index.html#work"><span aria-hidden="true">↖</span> Jianxuan Shao</a><nav aria-label="Project sections"><a href="#overview">Project</a><a href="#system">System</a><a href="#my-work">My work</a></nav><span class="nav-meta">SELECTED WORK — 04</span></header>
+<header class="case-nav"><a class="back" href="index.html#work"><span aria-hidden="true">↖</span> Jianxuan Shao</a><nav aria-label="Project sections"><a href="#overview">Project</a><a href="#samples">Try it</a><a href="#system">System</a><a href="#my-work">My work</a></nav><span class="nav-meta">SELECTED WORK — 04</span></header>
 <main id="main">
-<section id="overview" class="intro wrap"><p class="eyebrow">UNIVERSITY OF SYDNEY · MSc CAPSTONE · 2026</p><div class="title-row"><h1>AI Image<br>Detection.</h1><div class="project-subtitle"><p>Explainable AI-Generated Image Detection through Independent Visual Forensics and Complementary LMM Reasoning</p><span>Eight-person team / COMP5703</span></div></div></section>
+<section id="overview" class="intro wrap"><p class="eyebrow">UNIVERSITY OF SYDNEY · MSc CAPSTONE · 2026</p><div class="title-row"><h1>AI Image<br>Detection.</h1><div class="project-subtitle"><p>Explainable AI-Generated Image Detection through Independent Visual Forensics and Complementary LMM Reasoning</p><span>Eight-person team / COMP5703</span><a class="sample-cta" href="#samples">Try an image sample <span aria-hidden="true">↓</span></a></div></div></section>
+<section id="samples" class="sample-demo wrap" aria-labelledby="sample-demo-title">
+  <p class="eyebrow">INTERACTIVE WALKTHROUGH</p>
+  <h2 id="sample-demo-title">Try an image sample.</h2>
+  <p>Choose one of two examples from the team’s demo, then reveal the model’s recorded prediction.</p>
+  <div class="sample-demo-layout">
+    <div>
+      <div class="sample-demo-actions" role="group" aria-label="Choose a sample">
+        <button type="button" data-sample="parrot" aria-pressed="true">Parrot</button>
+        <button type="button" data-sample="speedboat" aria-pressed="false">Speedboat</button>
+      </div>
+      <button type="button" id="sample-reveal" class="sample-cta">Show recorded result</button>
+      <p id="sample-prediction" role="status" aria-live="polite"></p>
+      <p class="sample-demo-note">These two examples illustrate the workflow. We evaluated accuracy separately on 900 held-out images. Testing on new generators and external photos is future work.</p>
+    </div>
+    <div>
+      <video id="sample-frame" width="1280" height="1040" preload="metadata" muted playsinline aria-label="Parrot sample shown in the team demo"></video>
+      <a id="sample-clip" href="assets/capstone/main-demo.mp4#t=5">Open this sample in the walkthrough ↗</a>
+    </div>
+  </div>
+</section>
 <figure class="hero-film wrap"><div class="video-frame"><video id="capstone-demo" controls playsinline preload="none" width="1280" height="1040" aria-busy="true" poster="assets/capstone/main-demo-poster.jpg" aria-label="Short captioned walkthrough of the team’s explainable image detection prototype"><source data-src="assets/capstone/main-demo.mp4" type="video/mp4"></video></div><noscript><p><a href="assets/capstone/main-demo.mp4">Watch the 57-second demo ↗</a></p></noscript><figcaption><span>TEAM PROTOTYPE / EDITED WALKTHROUGH</span><span id="demo-duration">57 SECONDS · SILENT · CAPTIONED</span></figcaption></figure>
 <div class="demo-navigation wrap"><p class="eyebrow">EXPLORE THE DEMO</p><p id="demo-status" class="media-status" role="status" aria-live="polite">Loading video…</p><div role="group" aria-label="Jump to a demo chapter"><button data-seek="0" disabled>01 Upload <span>↗</span></button><button data-seek="16" disabled>02 Compare <span>↗</span></button><button data-seek="22" disabled>03 Inspect <span>↗</span></button><button data-seek="34" disabled>04 Result <span>↗</span></button></div><details class="demo-transcript"><summary>Read the walkthrough ＋</summary><ol><li>Choose an image for inspection.</li><li>Compare Detection-first, Evidence-first and visual-forensics outputs.</li><li>Open the branch evidence and inspect where the models disagree.</li><li>View the fused prediction, inspect the available explanation and save the result.</li></ol></details></div>
 <section class="story wrap" aria-labelledby="purpose-title"><div><p class="eyebrow">THE PROJECT</p><h2 id="purpose-title">A prediction.<br>Its evidence.<br>The disagreements.</h2></div><div class="story-copy"><p class="lead">Our team built a research prototype for examining whether an image is real or AI-generated—and what supports that judgment.</p><p>The interface brings three independent analysis branches into one workflow. A visitor can compare their outputs, inspect the language branches’ visual reasoning, view the combined prediction and download the saved result.</p><p>My work focused on the direct-detection baseline and reproducibility checks. I later investigated the frozen system’s errors, asking whether disagreement could help identify cases that deserve another look.</p></div></section>
