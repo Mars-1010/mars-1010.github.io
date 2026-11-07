@@ -2,8 +2,9 @@ import {createGame} from './game.js';
 
 const byId = id => document.getElementById(id);
 const canvas = byId('game');
+const arcade = canvas.closest('.arcade');
 const overlay = byId('overlay');
-const play = byId('play');
+const play = byId('gf-start');
 const pause = byId('pause');
 const sound = byId('sound');
 const modeButtons = [...document.querySelectorAll('[data-mode]')];
@@ -156,6 +157,7 @@ function startOrResume() {
       : 'Avoid incoming shots and clear the wave.');
   }
   updateControls();
+  canvas.closest('.main-game').scrollIntoView({block: 'nearest', inline: 'nearest', behavior: 'instant'});
   canvas.focus({preventScroll: true});
 }
 
@@ -199,7 +201,7 @@ sound.addEventListener('click', () => {
 });
 
 document.addEventListener('keydown', event => {
-  if (event.altKey || event.ctrlKey || event.metaKey || event.isComposing) return;
+  if (!arcade.contains(event.target) || event.altKey || event.ctrlKey || event.metaKey || event.isComposing) return;
   if (event.code === 'KeyP' && !event.repeat && (phase === 'running' || phase === 'paused')) {
     event.preventDefault();
     togglePause();
@@ -211,6 +213,9 @@ document.addEventListener('keydown', event => {
 });
 document.addEventListener('keyup', event => {
   if (keyActions[event.code]) setPressed(keyActions[event.code], event.code, false);
+});
+arcade.addEventListener('focusout', event => {
+  if (!arcade.contains(event.relatedTarget)) releaseInputs();
 });
 window.addEventListener('blur', releaseInputs);
 document.addEventListener('visibilitychange', () => {

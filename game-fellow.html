@@ -3,21 +3,79 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#efefed"><meta name="google" content="notranslate">
 <title>Game Fellow / Jianxuan Shao</title>
-<meta name="description" content="Game Fellow: from a rule-based following companion to Galaga co-play, screen-based AI exploration and supervised research writing. A project by Jianxuan Shao.">
+<meta name="description" content="Game Fellow: from a rule-based following companion to Galaga co-play, screen-based AI exploration and supervised research writing. Playable browser demo and screen-based AI prototype by Jianxuan Shao.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="game-fellow.css">
+<link rel="stylesheet" href="/fellow-play/case.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="case-nav"><a class="back" href="index.html#work"><span aria-hidden="true">↖</span> Jianxuan Shao</a><nav aria-label="Project sections"><a href="#overview">Project</a><a href="#development">Development</a><a href="#research">Research</a></nav><span class="nav-meta">SELECTED WORK — 03</span></header>
+<header class="case-nav"><a class="back" href="index.html#work"><span aria-hidden="true">↖</span> Jianxuan Shao</a><nav aria-label="Project sections"><a href="#overview">Project</a><a href="#play">Play</a><a href="#development">Development</a><a href="#research">Research</a></nav><span class="nav-meta">SELECTED WORK — 03</span></header>
 <main id="main">
 <section id="overview" class="intro wrap">
  <p class="eyebrow">HUMAN–AI CO-PLAY · 2025—ONGOING</p>
- <div class="title-row"><h1>Game Fellow<span>From following to co-play.</span></h1><p><span>Game interaction</span><span>Python / Pygame</span><span>Prototype & research</span></p></div>
+ <div class="title-row"><h1>Game Fellow<span>From following to reading the screen.</span></h1><p><span>Game interaction</span><span>Python / Pygame</span><span>Prototype & research</span></p></div>
+ <div class="gf-overview">
+  <p>The screen-based AI prototype automatically captured the game window <strong>about every 30&nbsp;ms</strong>. A vision model interpreted the screenshots to help the Fellow decide how to respond and give spoken feedback.</p>
+  <div class="gf-overview-links"><a class="text-link" href="#play">Play the browser demo <span aria-hidden="true">↓</span></a><a class="text-link" href="#screen-based-ai">How the AI prototype works <span aria-hidden="true">↗</span></a></div>
+ </div>
 </section>
 <figure class="hero-film wrap">
  <div class="video-frame"><video id="main-film" controls playsinline preload="metadata" poster="assets/game-fellow/main-poster.jpg" aria-label="Game Fellow Galaga prototype recording"><source src="assets/game-fellow/main.mp4" type="video/mp4"></video></div>
  <figcaption><span>GALAGA CO-PLAY / SILENT DEVELOPMENT CLIP</span><a href="#development">Follow the development <span aria-hidden="true">↓</span></a></figcaption>
 </figure>
+<section id="play" class="chapter live-demo wrap" aria-labelledby="play-title">
+ <div class="chapter-heading"><h2 id="play-title">Try the Fellow.</h2><p class="chapter-label">PLAYABLE BROWSER DEMO</p></div>
+ <div class="chapter-body"><p class="chapter-lead">Fly a round with the Fellow, then try the same opening solo.</p><p><strong>This public demo uses game-state rules.</strong> It demonstrates formation, interception and support fire without calling a vision model. The screenshot-based AI prototype is explained <a href="#screen-based-ai">below</a>.</p></div>
+ <section class="arcade gf-arcade" aria-label="Playable Game Fellow demo">
+  <div class="arcade-head">
+    <div class="mode-switch" role="group" aria-label="Game mode">
+      <button type="button" data-mode="fellow" aria-pressed="true"><span class="mode-icon fellow-icon" aria-hidden="true">◆</span> With Fellow</button>
+      <button type="button" data-mode="solo" aria-pressed="false"><span class="mode-icon" aria-hidden="true">△</span> Solo</button>
+    </div>
+    <div class="utilities"><button type="button" id="sound" aria-pressed="false">Sound off</button><button type="button" id="pause" disabled>Pause</button></div>
+  </div>
+  <div class="arcade-grid">
+    <div class="main-game">
+      <div class="screen">
+        <canvas id="game" width="720" height="480" tabindex="0" aria-label="Game field. Arrow keys or A and D move. Space fires. P pauses." aria-describedby="controls-hint">Your browser needs Canvas to play this demo.</canvas>
+        <div class="overlay" id="overlay">
+          <div class="overlay-card">
+            <p class="label" id="overlay-label">Flight check</p>
+            <h2 id="overlay-title">Ready to fly?</h2>
+            <p id="overlay-copy">You pilot the white ship. Watch what your cyan teammate does.</p>
+            <button class="primary" type="button" id="gf-start">Play with Fellow <span aria-hidden="true">→</span></button>
+            <noscript><p>Turn on JavaScript to play.</p></noscript>
+          </div>
+        </div>
+      </div>
+      <div class="controller" id="controls-hint">
+        <div class="touch-controls" aria-label="Game controls">
+          <button type="button" data-action="left" aria-label="Move left">←</button>
+          <button type="button" data-action="right" aria-label="Move right">→</button>
+          <button type="button" data-action="fire">Fire</button>
+        </div>
+        <div class="keyboard-hint"><span><kbd>←</kbd> <kbd>→</kbd> Move</span><span><kbd>Space</kbd> Fire</span><span><kbd>P</kbd> Pause</span></div>
+      </div>
+    </div>
+    <aside class="telemetry" aria-label="Flight information">
+      <div class="flight-title"><p class="label">Flight readout</p><span class="live" id="phase-text">Ready</span></div>
+      <dl class="metrics">
+        <div><dt>Time left</dt><dd id="time">—</dd></div>
+        <div><dt>Score</dt><dd id="score">0</dd></div>
+        <div><dt>Lives</dt><dd id="lives">3</dd></div>
+        <div><dt>Shots blocked</dt><dd id="blocks">0</dd></div>
+        <div><dt>Support shots</dt><dd id="assists">0</dd></div>
+      </dl>
+      <div class="behaviour">
+        <p class="label"><span class="signal" aria-hidden="true"></span> <span id="behavior-label">Fellow behavior</span></p>
+        <p class="behavior-name" id="behavior">Formation</p>
+        <p class="behavior-copy" id="behavior-copy">Your Fellow holds position beside your ship.</p>
+      </div>
+      <p class="callout" id="callout" role="status">Press Play to launch.</p>
+    </aside>
+  </div>
+</section>
+</section>
 <section class="story wrap" aria-labelledby="story-title">
  <div><p class="eyebrow">THE STARTING POINT</p><h2 id="story-title">What makes<br>a teammate<br>feel present?</h2></div>
  <div class="story-copy"><p class="lead">I started with a simple idea: a companion that stays alongside the player and joins in.</p><p>Before discussing the project with my teacher, I built small rule-based prototypes to explore following, fetching and shared tasks. The behaviour was hand-authored: a first way to test how a companion could appear to cooperate.</p><p>My teacher then recommended using Galaga as a concrete game setting. I moved the idea into a second ship, explored screenshot-based AI interpretation, and developed the work into a supervised research manuscript.</p><a class="text-link" href="#development">Watch the prototypes <span aria-hidden="true">↗</span></a></div>
@@ -37,10 +95,10 @@
   <div class="comparison"><div class="film-tabs" role="group" aria-label="Choose a prototype recording"><button data-clip="balanced" class="active" aria-pressed="true">01 Balanced</button><button data-clip="calm" aria-pressed="false">02 Calm</button><button data-clip="aggressive" aria-pressed="false">03 Aggressive</button><button data-clip="solo" aria-pressed="false">04 Solo</button></div><div class="comparison-body"><div class="video-frame"><video id="condition-film" controls playsinline preload="none" poster="assets/game-fellow/balanced-poster.jpg" aria-label="Balanced companion development recording"><source src="assets/game-fellow/balanced.mp4" type="video/mp4"></video></div><div class="condition-copy"><span id="condition-number" class="eyebrow">01 / BALANCED</span><h4 id="condition-title">Stay alongside.<br>Step in when needed.</h4><p id="condition-description" aria-live="polite">A middle setting for following distance, movement speed and support frequency.</p><p class="footnote">Short, silent development recordings. These clips illustrate prototype behaviour, not study outcomes.</p></div></div></div>
  </article>
  <article class="chapter ai-chapter" id="screen-based-ai">
-  <div class="chapter-heading"><span class="chapter-number">03</span><h3>From rules<br>to reading the screen.</h3><p class="chapter-label">SCREEN-BASED AI EXPLORATION</p></div>
-  <div class="chapter-body"><p class="chapter-lead">Could a companion respond to what it sees?</p><p>I also explored a screenshot-based route: capture the game screen, pass it to AI for interpretation, and use that interpretation to inform the companion’s response. This extended the question beyond behaviour scripted directly from game variables.</p><p>This was an exploratory direction. The current reproducible study build uses local game-state rules; it does not run a live vision-language model.</p></div>
-  <ol class="screen-pipeline" aria-label="Explored screenshot-based AI route"><li><span>01 / OBSERVE</span><h4>Game screen</h4><p>Capture a frame from play.</p></li><li><span>02 / INTERPRET</span><h4>AI interpretation</h4><p>Describe the game situation.</p></li><li><span>03 / RESPOND</span><h4>Companion response</h4><p>Map an interpretation to support.</p></li></ol>
-  <p class="pipeline-note">Exploratory architecture / Screenshot-based AI and the deterministic study controller are separate development paths.</p>
+  <div class="chapter-heading"><span class="chapter-number">03</span><h3>A Fellow that<br>reads the screen.</h3><p class="chapter-label">SCREEN-BASED AI PROTOTYPE</p></div>
+  <div class="chapter-body"><p class="chapter-lead">What can a teammate decide from the same screen the player sees?</p><p>I built a prototype that automatically sampled the game window at approximately <strong>30&nbsp;ms between captures</strong>. A vision model interpreted the screenshots to understand the game situation, including where things were on screen. That interpretation informed how the Fellow could help and what it said to the player.</p><p>The capture interval describes how often frames were sampled. It is separate from how long model analysis and the response take.</p></div>
+  <ol class="screen-pipeline" aria-label="Screen-based AI pipeline"><li><span>01 / CAPTURE</span><h4>Sample the screen.</h4><p>Automatically capture game-window screenshots roughly every 30&nbsp;ms.</p></li><li><span>02 / INTERPRET</span><h4>Read the scene.</h4><p>Use a vision model to interpret the screenshot and reason about the current game situation.</p></li><li><span>03 / RESPOND</span><h4>Decide how to help.</h4><p>Use the interpretation to inform the companion’s next response, including spoken feedback.</p></li></ol>
+  <p class="pipeline-note">The public browser demo is the rule-based version. It does not run screenshot analysis or make live model calls.</p>
  </article>
 </section>
 
@@ -52,4 +110,5 @@
 </main>
 <footer class="wrap case-footer"><span>JIANXUAN SHAO · GAME FELLOW</span><a href="index.html#work">Back to selected work ↗</a></footer>
 <script type="module" src="game-fellow.js"></script>
+<script type="module" src="/fellow-play/ui.js"></script>
 </body></html>

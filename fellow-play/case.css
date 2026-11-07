@@ -1,0 +1,63 @@
+/* Keep the shared case-study palette and type. Only the arcade field is dark. */
+.gf-overview{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:28px 7%;align-items:end;margin-top:34px}
+.gf-overview>p{max-width:59ch;color:#57565e;font-size:14px;line-height:1.75}
+.gf-overview>p strong,.live-demo .chapter-body strong,.ai-chapter .chapter-body strong{color:var(--ink);font-weight:650}
+.gf-overview-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px 28px}
+.gf-overview-links .text-link{gap:18px;margin:0}
+.live-demo{margin-top:78px;padding-bottom:26px}
+.live-demo .chapter-heading{padding-left:0}
+.live-demo .chapter-heading h2{font-size:clamp(32px,3.7vw,54px)}
+.live-demo .chapter-body a{border-bottom:1px solid var(--line)}
+.live-demo .chapter-body a:hover{color:var(--ink)}
+.gf-arcade{grid-column:1/-1;margin-top:23px;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#e7e5ee}
+.gf-arcade [hidden]{display:none!important}
+.gf-arcade .arcade-head,.gf-arcade .controller{display:flex;justify-content:space-between;align-items:center;gap:9px 15px;flex-wrap:wrap;padding:9px 13px}
+.gf-arcade .mode-switch,.gf-arcade .utilities,.gf-arcade .touch-controls,.gf-arcade .keyboard-hint{display:flex;align-items:center;gap:7px}
+.gf-arcade .arcade-head button,.gf-arcade .touch-controls button{padding:7px 12px;min-height:36px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--ink);font-size:12px}
+.gf-arcade button[aria-pressed=true],.gf-arcade button[data-held=true]{background:#d7d1e4;border-color:#a99ab9;color:#332345}
+.gf-arcade .arcade-head button:not(:disabled):hover,.gf-arcade .touch-controls button:hover{background:#f5f3f8}
+.gf-arcade button:disabled{opacity:.48;cursor:default}
+.gf-arcade .mode-icon{margin-right:3px}
+.gf-arcade .fellow-icon{color:#644e82}
+.gf-arcade .arcade-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(194px,23%);border-top:1px solid var(--line)}
+.gf-arcade .main-game{min-width:0}
+.gf-arcade .screen{position:relative;width:100%;aspect-ratio:3/2;isolation:isolate;overflow:hidden;background:#090f20}
+.gf-arcade canvas{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;touch-action:none}
+.gf-arcade canvas:focus-visible{outline:2px solid #d3c1f2;outline-offset:-3px}
+.gf-arcade .overlay{position:absolute;inset:0;display:grid;place-items:center;padding:12px;text-align:center;color:#efefed;background:#0b1020cd}
+.gf-arcade .overlay-card{display:grid;justify-items:center;gap:8px;max-width:460px}
+.gf-arcade .label{color:#5f586d;font-size:9px;letter-spacing:.08em;line-height:1.45;text-transform:uppercase}
+.gf-arcade .overlay .label{color:#d4c8e4}
+.gf-arcade .overlay h2{font-size:clamp(29px,4vw,52px)}
+.gf-arcade .overlay p:not(.label){max-width:38ch;color:#dfdbe7;font-size:clamp(11px,1.5vw,14px);line-height:1.5}
+.gf-arcade .primary{margin-top:4px;padding:9px 16px;min-height:38px;border:1px solid #c5b6d7;border-radius:4px;background:#e7e1f0;color:#272030;font-size:12px;font-weight:600}
+.gf-arcade .primary:hover{background:#f6f3fa}
+.gf-arcade .controller{border-top:1px solid var(--line)}
+.gf-arcade .touch-controls button{min-width:43px;min-height:40px;touch-action:none;user-select:none}
+.gf-arcade .touch-controls button:last-child{min-width:55px}
+.gf-arcade .keyboard-hint{color:#5f586d;font-size:11px;gap:12px;flex-wrap:wrap}
+.gf-arcade .keyboard-hint>span{white-space:nowrap}
+.gf-arcade kbd{font:inherit;color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:2px 4px}
+.gf-arcade .telemetry{min-width:0;display:flex;flex-direction:column;gap:14px;padding:clamp(12px,2.2vw,26px);border-left:1px solid var(--line)}
+.gf-arcade .flight-title{display:flex;justify-content:space-between;align-items:center;gap:9px}
+.gf-arcade .live{color:#4d346c;font-size:9px;letter-spacing:.08em;text-transform:uppercase}
+.gf-arcade .metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;gap:10px 15px}
+.gf-arcade .metrics div{min-width:0;border-bottom:1px solid var(--line);padding-bottom:6px}
+.gf-arcade .metrics dt{font-size:10px;line-height:1.3;color:#57525f}
+.gf-arcade .metrics dd{font-size:clamp(19px,2.2vw,30px);font-variant-numeric:tabular-nums;line-height:1.2;margin:5px 0 0}
+.gf-arcade .behaviour{padding-top:12px;border-top:1px solid var(--line)}
+.gf-arcade .signal{display:inline-block;width:6px;height:6px;margin-right:3px;border-radius:50%;background:#745890;vertical-align:1px}
+.gf-arcade .behavior-name{font-size:17px;margin:4px 0 1px;color:#3d2d52}
+.gf-arcade .behavior-copy,.gf-arcade .callout{color:#57525f;font-size:11px;line-height:1.5}
+.gf-arcade .callout{min-height:1.5em}
+@media(min-width:701px){.gf-arcade .screen{max-height:clamp(250px,calc(100svh - 365px),550px)}}
+@media(max-width:700px){
+  .gf-overview{display:block;margin-top:23px}.gf-overview>p{font-size:12px}.gf-overview-links{justify-content:flex-start;gap:8px 18px;margin-top:14px}.gf-overview-links .text-link{gap:8px}.gf-overview-links .text-link>span{font-size:17px}
+  .live-demo{margin-top:43px;padding-bottom:15px}.live-demo .chapter-body{padding-top:20px}.gf-arcade{margin-top:12px}
+  .gf-arcade .arcade-head,.gf-arcade .controller{padding:8px}.gf-arcade .arcade-head button{padding:6px 7px;min-height:34px;font-size:10px}
+  .gf-arcade .arcade-grid{display:block}.gf-arcade .telemetry{border-left:0;border-top:1px solid var(--line);gap:9px}
+  .gf-arcade .metrics{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}.gf-arcade .metrics dt{font-size:9px}.gf-arcade .metrics dd{font-size:18px}
+  .gf-arcade .touch-controls{flex:1}.gf-arcade .touch-controls button{flex:1;min-height:44px}.gf-arcade .keyboard-hint{display:none}
+  .gf-arcade .overlay-card{gap:5px}.gf-arcade .overlay h2{font-size:clamp(22px,7vw,32px)}
+}
+.live-demo .chapter-body>p:last-child{margin-bottom:0}
