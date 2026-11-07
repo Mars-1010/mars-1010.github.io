@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#10161e">
+<meta name="description" content="A playable Game Fellows demo by Jianxuan Shao. Try the same opening with or without a rule-based teammate.">
+<title>Play Game Fellows | Jianxuan Shao</title>
+<link rel="stylesheet" href="./play.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to game</a>
+<header class="site-head"><div class="wrap masthead"><a class="brand" href="https://mars-1010.github.io/game-fellow.html"><span aria-hidden="true">◈</span> Jianxuan Shao</a><a class="case-link" href="https://mars-1010.github.io/game-fellow.html">Project case study <span aria-hidden="true">↗</span></a></div></header>
+
+<main id="main" class="wrap">
+<section class="intro" aria-labelledby="title">
+  <div><p class="label kicker">Game Fellows <span> / </span> Playable demo</p><h1 id="title">Fly with a teammate<span>.</span></h1></div>
+  <p class="lead">Try the same opening solo or with a Fellow that keeps formation, intercepts shots and fires alongside you.</p>
+</section>
+
+<section class="arcade" aria-label="Playable Game Fellows demo">
+  <div class="arcade-head">
+    <div class="mode-switch" role="group" aria-label="Game mode">
+      <button type="button" data-mode="fellow" aria-pressed="true"><span class="mode-icon fellow-icon" aria-hidden="true">◆</span> With Fellow</button>
+      <button type="button" data-mode="solo" aria-pressed="false"><span class="mode-icon" aria-hidden="true">△</span> Solo</button>
+    </div>
+    <div class="utilities"><button type="button" id="sound" aria-pressed="false">Sound off</button><button type="button" id="pause" disabled>Pause</button></div>
+  </div>
+  <div class="arcade-grid">
+    <div class="main-game">
+      <div class="screen">
+        <canvas id="game" width="720" height="480" tabindex="0" aria-label="Game field. Arrow keys or A and D move. Space fires. P pauses." aria-describedby="controls-hint">Your browser needs Canvas to play this demo.</canvas>
+        <div class="overlay" id="overlay">
+          <div class="overlay-card">
+            <p class="label" id="overlay-label">Flight check</p>
+            <h2 id="overlay-title">Ready to fly?</h2>
+            <p id="overlay-copy">You pilot the white ship. Watch what your cyan teammate does.</p>
+            <button class="primary" type="button" id="play">Play with Fellow <span aria-hidden="true">→</span></button>
+            <noscript><p>Turn on JavaScript to play.</p></noscript>
+          </div>
+        </div>
+      </div>
+      <div class="controller" id="controls-hint">
+        <div class="touch-controls" aria-label="Game controls">
+          <button type="button" data-action="left" aria-label="Move left">←</button>
+          <button type="button" data-action="right" aria-label="Move right">→</button>
+          <button type="button" data-action="fire">Fire</button>
+        </div>
+        <div class="keyboard-hint"><span><kbd>←</kbd> <kbd>→</kbd> Move</span><span><kbd>Space</kbd> Fire</span><span><kbd>P</kbd> Pause</span></div>
+      </div>
+    </div>
+    <aside class="telemetry" aria-label="Flight information">
+      <div class="flight-title"><p class="label">Flight readout</p><span class="live" id="phase-text">Ready</span></div>
+      <dl class="metrics">
+        <div><dt>Time left</dt><dd id="time">—</dd></div>
+        <div><dt>Score</dt><dd id="score">0</dd></div>
+        <div><dt>Lives</dt><dd id="lives">3</dd></div>
+        <div><dt>Shots blocked</dt><dd id="blocks">0</dd></div>
+        <div><dt>Support shots</dt><dd id="assists">0</dd></div>
+      </dl>
+      <div class="behaviour">
+        <p class="label"><span class="signal" aria-hidden="true"></span> <span id="behavior-label">Fellow behavior</span></p>
+        <p class="behavior-name" id="behavior">Formation</p>
+        <p class="behavior-copy" id="behavior-copy">Your Fellow holds position beside your ship.</p>
+      </div>
+      <p class="callout" id="callout" role="status">Press Play to launch.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="context" aria-label="About this version">
+  <div><p class="label">What to watch</p><p>Hold fire to see the Fellow coordinate shots with you. Watch for <strong>Intercept</strong> when an incoming shot threatens your lane, then <strong>Recover</strong> as it returns to formation.</p></div>
+  <div><p class="label">About this version</p><p>A short browser adaptation of the Pygame prototype. The Fellow uses game-state rules. The screenshot-based AI was a separate experiment. No gameplay data is collected.</p></div>
+</section>
+</main>
+
+<footer class="wrap footer"><span>Game Fellows · Jianxuan Shao</span><a href="https://mars-1010.github.io/game-fellow.html">Original prototype and credits <span aria-hidden="true">↗</span></a></footer>
+<script type="module" src="./ui.js"></script>
+</body>
+</html>
