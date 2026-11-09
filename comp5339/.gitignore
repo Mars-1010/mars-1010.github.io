@@ -1,0 +1,9 @@
+.env
+.env.*
+.streamlit/secrets.toml
+.ipynb_checkpoints/
+__pycache__/
+outputs/
+assignment1/
+*.duckdb
+*.duckdb.wal

@@ -1,0 +1,8 @@
+# Python packages only. Mosquitto is a system MQTT broker; install it separately.
+pandas
+requests
+duckdb
+paho-mqtt
+streamlit
+folium
+streamlit-folium
