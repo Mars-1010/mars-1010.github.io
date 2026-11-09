@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f0f0ed">
   <title>Tracing a Session Token / Jianxuan Shao</title>
-  <meta name="description" content="I audited how a coursework Android app generated the token it used to remember a signed-in user.">
+  <meta name="description" content="An Android security case study on how I traced a weak sign-in token and how our team reproduced it in an emulator.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="coursework.css">
@@ -14,32 +14,38 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="header">
     <a href="index.html#work" class="brand" aria-label="Jianxuan Shao selected work">Jianxuan<br>Shao<span>.</span></a>
-    <nav aria-label="Project navigation"><a href="index.html#work">Work <span>09</span></a><a href="#method">Method</a><a href="#findings">Findings</a></nav>
+    <nav aria-label="Project navigation"><a href="index.html#work">Work <span>09</span></a><a href="#method">My work</a><a href="#findings">Results</a></nav>
     <a class="header-contact" href="index.html#work">Selected work <span aria-hidden="true">↗</span></a>
   </header>
   <main id="main" class="coursework-main">
     <section class="coursework-intro" aria-labelledby="project-title">
       <div class="coursework-kicker"><span>SELECTED WORK / 08</span><span>INFO5995 CYBERSECURITY · 2026</span></div>
       <h1 id="project-title">Tracing a Session Token<span>.</span></h1>
-      <p class="coursework-lead">I audited how a coursework Android app generated the token it used to remember a signed-in user.</p>
-      <p><strong>My role.</strong> I used AI to help shortlist suspicious code, then inspected the decompiled app in JADX to check where the token came from and how the app used it.</p>
+      <p class="coursework-lead">Could the token an Android app uses to remember a signed-in user be predicted?</p>
+      <p>In this INFO5995 team project, I traced how a training app generated, stored and retrieved its session token. Our team demonstrated the weakness by reproducing the exact token in a controlled emulator test.</p>
     </section>
     <figure class="coursework-cover">
       <img src="assets/coursework/android-session.svg" alt="A diagram of Android sign-in, token generation and stored session state" width="1200" height="720">
       <figcaption>A simplified view of how the token moved through the coursework app.</figcaption>
     </figure>
     <section id="method" class="coursework-section" aria-labelledby="method-title">
-      <div><p class="coursework-label">01 / METHOD</p><h2 id="method-title">From a lead to a code trace</h2></div>
+      <div><p class="coursework-label">01 / MY WORK</p><h2 id="method-title">Trace the login flow</h2></div>
       <div class="coursework-prose">
-        <p><strong>Triage with AI.</strong> I used AI to help build a scanner that flagged code handling randomness. I followed the relevant calls in JADX from login to token creation, storage and retrieval.</p>
-        <p><strong>Runtime check.</strong> I ran the app in an emulator and confirmed the normal sign-in flow reached the profile screen. The code trace showed where the token was used.</p>
+        <p><strong>Find a lead.</strong> I used AI to help shortlist code that handled randomness. I then inspected the decompiled app in JADX and followed the calls from successful login to token generation and storage. I verified that the app read the same value back as session state.</p>
+        <p><strong>Check it at runtime.</strong> I ran the training app in an Android emulator and confirmed that a normal login reached the profile screen. The code trace showed that the 16-character token came from <code>java.util.Random</code>, a generator unsuitable for security-sensitive tokens.</p>
       </div>
     </section>
     <section id="findings" class="coursework-section" aria-labelledby="findings-title">
-      <div><p class="coursework-label">02 / FINDINGS</p><h2 id="findings-title">A random-looking token can be predictable</h2></div>
+      <div><p class="coursework-label">02 / RESULTS</p><h2 id="findings-title">Reproduce the token</h2></div>
       <div class="coursework-prose">
-        <p>The app used <code>java.util.Random</code> to generate a value stored and retrieved as authenticated session state. The audit recommended a cryptographically secure generator for session tokens.</p>
-        <p>The emulator check covered normal sign-in. It did not measure how reliably an attacker could take over a session.</p>
+        <p>The team’s first attempt to infer the token from timing did not find a match. In a controlled test, the team used Frida to record the generator’s internal state, then supplied that state to a Python script. The script reproduced all 16 characters of the token observed in the emulator.</p>
+        <p class="coursework-note">The demonstration required access to the generator’s internal state. It established reproducibility under that condition. A real-world account takeover was outside the test.</p>
+      </div>
+    </section>
+    <section id="recommendation" class="coursework-section" aria-labelledby="recommendation-title">
+      <div><p class="coursework-label">03 / DELIVERABLES</p><h2 id="recommendation-title">Recommend a fix</h2></div>
+      <div class="coursework-prose">
+        <p>We documented the code path, the conditions required to reproduce the token and the recommended change in a security report and demo. The report proposed generating new tokens with <code>SecureRandom</code> to address the weakness at its source. <a href="https://docs.oracle.com/en/java/javase/26/docs/api/java.base/java/util/Random.html">Java API reference ↗</a></p>
       </div>
     </section>
     <p class="coursework-back"><a href="index.html#work">↖ Back to selected work</a></p>
