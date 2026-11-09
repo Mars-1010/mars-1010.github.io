@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f0f0ed">
   <title>Tracing a Session Token / Jianxuan Shao</title>
-  <meta name="description" content="An Android security case study on how I traced a weak sign-in token and how our team reproduced it in an emulator.">
+  <meta name="description" content="Two INFO5995 security case studies: reproducing an Android session token and validating a webhook replay issue in an open-source SDK.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="coursework.css">
@@ -14,7 +14,7 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="header">
     <a href="index.html#work" class="brand" aria-label="Jianxuan Shao selected work">Jianxuan<br>Shao<span>.</span></a>
-    <nav aria-label="Project navigation"><a href="index.html#work">Work <span>09</span></a><a href="#method">My work</a><a href="#findings">Results</a></nav>
+    <nav aria-label="Project navigation"><a href="index.html#work">Work <span>09</span></a><a href="#method">My work</a><a href="#findings">Results</a><a href="#bug-bounty">Bug bounty</a></nav>
     <a class="header-contact" href="index.html#work">Selected work <span aria-hidden="true">↗</span></a>
   </header>
   <main id="main" class="coursework-main">
@@ -23,6 +23,7 @@
       <h1 id="project-title">Tracing a Session Token<span>.</span></h1>
       <p class="coursework-lead">Could the token an Android app uses to remember a signed-in user be predicted?</p>
       <p>In this INFO5995 team project, I traced how a training app generated, stored and retrieved its session token. Our team demonstrated the weakness by reproducing the exact token in a controlled emulator test.</p>
+      <a class="text-link" href="#bug-bounty">Part B · Bug bounty research <span aria-hidden="true">↓</span></a>
     </section>
     <figure class="coursework-cover">
       <img src="assets/coursework/android-session.svg" alt="A diagram of Android sign-in, token generation and stored session state" width="1200" height="720">
@@ -48,7 +49,54 @@
         <p>We documented the code path, the conditions required to reproduce the token and the recommended change in a security report and demo. The report proposed generating new tokens with <code>SecureRandom</code> to address the weakness at its source. <a href="https://docs.oracle.com/en/java/javase/26/docs/api/java.base/java/util/Random.html">Java API reference ↗</a></p>
       </div>
     </section>
+    <section id="bug-bounty" class="coursework-section" aria-labelledby="bug-bounty-title">
+      <div>
+        <p class="coursework-label">04 / PART B · BUG BOUNTY</p>
+        <h2 id="bug-bounty-title">One signed event, two calls</h2>
+      </div>
+      <div class="coursework-prose">
+        <p>I found and reported a webhook replay issue in an open-source SDK listed in a bug bounty program. I traced the SDK’s request handler, built a local proof of concept and used a test client to record what happened downstream.</p>
+        <figure class="coursework-plot" aria-labelledby="replay-result-caption">
+          <dl class="coursework-metrics">
+            <div><dt>Test input</dt><dd>1 signed event</dd></div>
+            <div><dt>Deliveries</dt><dd>2 identical</dd></div>
+            <div><dt>Calls recorded</dt><dd>2 downstream</dd></div>
+          </dl>
+          <figcaption id="replay-result-caption">Observed in the local SDK test. The client recorded calls instead of sending them to a live service.</figcaption>
+        </figure>
+        <p>The signature established that the event was authentic. The test showed that the handler accepted the same event again. A handler that remembers which event IDs it has processed can skip a repeated delivery.</p>
+        <h3>Try a synthetic proof of concept</h3>
+        <p>This browser demo delivers the same fictional event twice to two toy handlers. One processes every delivery. The other skips event IDs it has already processed.</p>
+        <button id="run-replay-demo" type="button" class="text-link" hidden>Run replay demo <span aria-hidden="true">↗</span></button>
+        <p><output id="replay-demo-result" for="run-replay-demo" aria-live="polite"></output></p>
+        <p class="coursework-note">This case study describes the vulnerability pattern. The original report, screenshots and detailed reproduction steps remain private under the program’s coordinated disclosure process. <a href="https://www.hackerone.com/terms/disclosure-guidelines">HackerOne disclosure guidelines ↗</a></p>
+      </div>
+    </section>
     <p class="coursework-back"><a href="index.html#work">↖ Back to selected work</a></p>
   </main>
+  <script>
+    const runReplayDemo = document.querySelector('#run-replay-demo');
+    const replayDemoResult = document.querySelector('#replay-demo-result');
+
+    function countDemoCalls(deliveries, skipDuplicates) {
+      const processedIds = new Set();
+      let calls = 0;
+      for (const eventId of deliveries) {
+        if (skipDuplicates && processedIds.has(eventId)) continue;
+        processedIds.add(eventId);
+        calls += 1;
+      }
+      return calls;
+    }
+
+    runReplayDemo.hidden = false;
+    runReplayDemo.addEventListener('click', () => {
+      const deliveries = ['demo-event', 'demo-event'];
+      const withoutDeduplication = countDemoCalls(deliveries, false);
+      const withDeduplication = countDemoCalls(deliveries, true);
+      replayDemoResult.textContent =
+        `Without deduplication: ${withoutDeduplication} calls. With deduplication: ${withDeduplication} call.`;
+    });
+  </script>
 </body>
 </html>
