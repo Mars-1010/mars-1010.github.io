@@ -5,33 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f0f0ed">
   <title>Signal Box / Jianxuan Shao</title>
-  <meta name="description" content="An IDEA9106 case study in interview research, physical prototyping and usability evaluation.">
+  <meta name="description" content="An IDEA9106 case study with a decorated physical prototype, a companion audio website and exploratory usability testing.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="coursework.css">
+  <link rel="stylesheet" href="signal-box.css">
 </head>
 <body class="coursework">
   <a class="skip" href="#main">Skip to content</a>
   <header class="header">
     <a href="index.html#work" class="brand" aria-label="Jianxuan Shao selected work">Jianxuan<br>Shao<span>.</span></a>
-    <nav aria-label="Project navigation"><a href="index.html#work">Work <span>09</span></a><a href="#method">Method</a><a href="#findings">Findings</a></nav>
+    <nav aria-label="Project navigation"><a href="index.html#work">Work <span>09</span></a><a href="#prototype">Prototype</a><a href="#method">Method</a><a href="#findings">Findings</a></nav>
     <a class="header-contact" href="index.html#work">Selected work <span aria-hidden="true">↗</span></a>
   </header>
   <main id="main" class="coursework-main">
     <section class="coursework-intro" aria-labelledby="project-title">
       <div class="coursework-kicker"><span>SELECTED WORK / 06</span><span>IDEA9106 DESIGN THINKING · 2026</span></div>
       <h1 id="project-title">Signal Box<span>.</span></h1>
-      <p class="coursework-lead">A paper prototype that offered international students a real applicant’s story while they waited to hear back about a job.</p>
-      <p><strong>My role.</strong> I interviewed three international students about how they decide whether to wait, follow up or move on. I designed the paper prototype and analysed a usability test recording. Some participants hesitated or pressed the button again, so I added light and sound feedback to make the response clear.</p>
+      <p class="coursework-lead">A physical box and a companion website that offered international students a real applicant’s story while they waited to hear back about a job.</p>
+      <p><strong>My role.</strong> I interviewed three international students about how they decide whether to wait, follow up or move on. I designed the physical prototype, built the website that played its audio prompts, and analysed a usability test recording to guide the next iteration.</p>
     </section>
 
-    <figure class="coursework-cover">
-      <img src="assets/coursework/signal-box-study.svg" alt="Diagram of a waiting slip going into a paper box and a two-sided story card coming out" width="1200" height="720">
-      <figcaption>Interaction diagram based on the paper prototype. The revised prototype was called Lucky Box.</figcaption>
-    </figure>
+    <section id="prototype" class="signal-showcase" aria-labelledby="prototype-title">
+      <header>
+        <p class="coursework-label">01 / WHAT I BUILT</p>
+        <h2 id="prototype-title">The box and the website</h2>
+      </header>
+      <div class="signal-builds">
+        <figure class="signal-photo">
+          <img src="assets/coursework/signal-box-prototype.jpg" alt="Black and gold Signal Box with its printed sign, waiting slips, story cards and the audio player on a laptop" width="1536" height="2048">
+          <figcaption>The original classroom setup. The printed wrap, story cards and audio player used the same black and gold visual identity.</figcaption>
+        </figure>
+        <div class="signal-player">
+          <p class="coursework-label">COMPANION WEBSITE</p>
+          <h3>The guided audio player</h3>
+          <p>I built a browser tool for the facilitator to play the welcome and form instructions, then cue a card reveal. It offered three responses for a close match, a related story or no close match, with captions timed to the audio.</p>
+          <a class="signal-player-link" href="assets/coursework/signal-box-player.html">Open the full audio player <span aria-hidden="true">↗</span></a>
+          <iframe src="assets/coursework/signal-box-player.html" title="Original Signal Box guided audio player" loading="lazy" sandbox="allow-scripts"></iframe>
+          <p class="coursework-note">The original controls are in Chinese. The audio and timed captions are in English.</p>
+        </div>
+      </div>
+    </section>
 
     <section id="method" class="coursework-section" aria-labelledby="method-title">
-      <div><p class="coursework-label">01 / RESEARCH AND TESTING</p><h2 id="method-title">Interviews and prototype testing</h2></div>
+      <div><p class="coursework-label">02 / RESEARCH AND TESTING</p><h2 id="method-title">Interviews and prototype testing</h2></div>
       <div class="coursework-prose">
         <p><strong>Interviews.</strong> I reviewed existing research and mapped who could influence the wait. In each interview, I asked the participant to walk me through one application, from the last employer contact to what they checked and what made them act.</p>
         <p><strong>Prototype testing.</strong> In four exploratory sessions, participants thought aloud as they described their situation on a slip, pressed a button and received a story card. A facilitator selected a matching card behind the box (Wizard of Oz). For the session I reviewed, I recorded task times, hesitation, prompts and whether the participant found the source on the back of the card.</p>
@@ -40,7 +57,7 @@
     </section>
 
     <section id="findings" class="coursework-section" aria-labelledby="findings-title">
-      <div><p class="coursework-label">02 / FINDINGS AND ITERATION</p><h2 id="findings-title">A clearer response from the box</h2></div>
+      <div><p class="coursework-label">03 / FINDINGS AND ITERATION</p><h2 id="findings-title">A clearer response from the box</h2></div>
       <div class="coursework-prose">
         <dl class="coursework-metrics">
           <div><dt>SUS score</dt><dd>76.7 <small>/ 100</small></dd></div>
@@ -48,7 +65,7 @@
           <div><dt>Trust after seeing the source</dt><dd>4.33 <small>/ 5</small></dd></div>
         </dl>
         <p class="coursework-note">These scores describe three complete responses. I still needed to test whether people saw the story as an example or took it as a prediction about their own application.</p>
-        <p>Some participants hesitated or pressed repeatedly, so I added a light and sound response. Readers needed a prompt to turn the card over, so I made the two-sided format more obvious. A request to share a story led to an optional submission route alongside source verification.</p>
+        <p>For the revised prototype, called Lucky Box, I added light and sound feedback after some participants hesitated or pressed repeatedly. Readers needed a prompt to turn the card over, so I made the two-sided format more obvious. A request to share a story led to an optional submission route alongside source verification.</p>
       </div>
     </section>
     <p class="coursework-back"><a href="index.html#work">↖ Back to selected work</a></p>

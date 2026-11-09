@@ -1,4 +1,4 @@
-import { projects } from './m-content.js?v=20261109-work';
+import { projects } from './m-content.js?v=20261109-signal-box';
 import { EditorialStudy } from './portfolio-sculpture.js';
 import { AssistantPresence } from './assistant-presence.js';
 import { initAssistantStudy } from './assistant-study.js';
