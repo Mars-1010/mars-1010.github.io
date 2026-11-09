@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f0f0ed">
   <title>Reading Tissue Images / Jianxuan Shao</title>
-  <meta name="description" content="How well do three different models classify the same small microscopy images?">
+  <meta name="description" content="I compared three models for classifying small tissue images and used a held-out test set to measure where each model worked and where it failed.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="coursework.css">
@@ -14,39 +14,46 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="header">
     <a href="index.html#work" class="brand" aria-label="Jianxuan Shao selected work">Jianxuan<br>Shao<span>.</span></a>
-    <nav aria-label="Project navigation"><a href="index.html#work">Work <span>09</span></a><a href="#method">Method</a><a href="#findings">Findings</a></nav>
+    <nav aria-label="Project navigation"><a href="index.html#work">Work <span>09</span></a><a href="#method">My work</a><a href="#findings">Results</a></nav>
     <a class="header-contact" href="index.html#work">Selected work <span aria-hidden="true">↗</span></a>
   </header>
   <main id="main" class="coursework-main">
     <section class="coursework-intro" aria-labelledby="project-title">
       <div class="coursework-kicker"><span>SELECTED WORK / 09</span><span>COMP5318 MACHINE LEARNING · 2026</span></div>
       <h1 id="project-title">Reading Tissue Images<span>.</span></h1>
-      <p class="coursework-lead">How well do three different models classify the same small microscopy images?</p>
-      <p><strong>My role.</strong> I prepared the PathMNIST data, implemented and tuned the models, and compared their predictions on a held-out test set.</p>
+      <p class="coursework-lead">Which model can best classify nine types of microscopy images when each image is only 28 × 28 pixels?</p>
+      <p>For COMP5318, I prepared a coursework subset of PathMNIST, implemented and tuned three models, and analysed where each one made mistakes. The convolutional neural network performed best on the held-out test set.</p>
     </section>
     <figure class="coursework-cover">
       <img src="assets/coursework/pathmnist-study.svg" alt="An illustrated tissue patch next to held-out macro F1 scores for Random Forest, MLP and CNN" width="1200" height="720">
       <figcaption>The tissue patch is illustrative. The bars show the measured test scores.</figcaption>
     </figure>
     <section id="method" class="coursework-section" aria-labelledby="method-title">
-      <div><p class="coursework-label">01 / METHOD</p><h2 id="method-title">One split, three models</h2></div>
+      <div><p class="coursework-label">01 / MY WORK</p><h2 id="method-title">Give three models the same test</h2></div>
       <div class="coursework-prose">
-        <p><strong>Data and split.</strong> I used a coursework subset of PathMNIST with nine tissue classes. I normalised the images and made a stratified training and validation split. I kept the supplied test split separate from model selection and used it for the final comparison.</p>
-        <p><strong>Model comparison.</strong> I compared Random Forest and a multilayer perceptron on flattened pixels with a convolutional network that kept the two-dimensional image layout. I used validation results to choose settings and reported macro F1 alongside accuracy so each class counted equally in the F1 summary.</p>
+        <p><strong>Prepare the data.</strong> I normalised the pixels and split the 32,000 supplied training images into 25,600 for training and 6,400 for validation, preserving class proportions. I reserved the separate 8,000-image test set for the final comparison.</p>
+        <p><strong>Train and tune.</strong> I compared a Random Forest and a multilayer perceptron (MLP) on flattened pixels with a convolutional neural network (CNN) that kept the two-dimensional image layout. I chose settings using validation macro F1 so that each class counted equally, then evaluated the selected models on the same test images.</p>
       </div>
     </section>
     <section id="findings" class="coursework-section" aria-labelledby="findings-title">
-      <div><p class="coursework-label">02 / FINDINGS</p><h2 id="findings-title">The CNN performed best on this split</h2></div>
+      <div><p class="coursework-label">02 / RESULTS</p><h2 id="findings-title">The CNN led, with a clear weak spot</h2></div>
       <div class="coursework-prose">
         <dl class="coursework-metrics">
           <div><dt>CNN accuracy</dt><dd>78.58<small>%</small></dd></div>
           <div><dt>CNN macro F1</dt><dd>0.7793</dd></div>
         </dl>
-        <p>I used confusion matrices to see which tissue classes each model mixed up. This comparison used a single split and one random seed for the neural networks. Repeating the runs would help measure how much the scores vary.</p>
+        <p>The CNN scored 12.13 percentage points higher in test accuracy than the next-best model, Random Forest. I checked the confusion matrix and class-level scores to see where that overall result hid errors. Cancer-associated stroma was the CNN’s hardest class, with an F1 score of 0.558.</p>
         <figure class="coursework-plot">
           <img src="assets/coursework/pathmnist-confusion.png" alt="Confusion matrix of the CNN’s predictions across nine tissue classes on the test set" width="562" height="590" loading="lazy">
-          <figcaption>CNN test predictions by true and predicted class.</figcaption>
+          <figcaption>On the CNN’s test confusion matrix, the diagonal shows correct predictions. The other cells show which classes the model mixed up.</figcaption>
         </figure>
+      </div>
+    </section>
+    <section id="deliverables" class="coursework-section" aria-labelledby="deliverables-title">
+      <div><p class="coursework-label">03 / DELIVERABLES</p><h2 id="deliverables-title">Make the comparison reviewable</h2></div>
+      <div class="coursework-prose">
+        <p>I documented the data split, tuning choices and final results in a notebook and report, with learning curves and confusion matrices. The final comparison used one split and one random seed per model. My next step would be to repeat the runs across seeds and check whether performance on stroma improves with light image augmentation.</p>
+        <p class="coursework-note">Dataset source <a href="https://www.nature.com/articles/s41597-022-01721-8">MedMNIST v2 ↗</a>. The sample counts above are for the coursework subset.</p>
       </div>
     </section>
     <p class="coursework-back"><a href="index.html#work">↖ Back to selected work</a></p>

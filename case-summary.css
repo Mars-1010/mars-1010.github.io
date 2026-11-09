@@ -1,0 +1,26 @@
+.case-summary {
+  max-width: 66ch;
+  margin-top: clamp(20px, 3vw, 32px);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.case-summary p {
+  margin: 0;
+}
+
+.case-summary p + p {
+  margin-top: 10px;
+}
+
+.case-summary strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+@media (max-width: 700px) {
+  .case-summary {
+    font-size: 13px;
+  }
+}
