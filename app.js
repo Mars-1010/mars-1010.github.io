@@ -1,4 +1,4 @@
-import { projects } from './content.js?v=20261109-signal-box';
+import { projects } from './content.js?v=20261109-grid-replay';
 import { EditorialStudy } from './portfolio-sculpture.js';
 import { AssistantPresence } from './assistant-presence.js';
 import { initAssistantStudy } from './assistant-study.js';

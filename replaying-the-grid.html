@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f0f0ed">
+  <title>Replaying the Grid / Jianxuan Shao</title>
+  <meta name="description" content="I integrated electricity and facility data in DuckDB and built an MQTT publisher that replayed a week of recorded data into our team’s map.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="coursework.css">
+  <style>
+    .grid-cover img { max-height: none; }
+  </style>
+</head>
+<body class="coursework">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="header">
+    <a href="index.html#work" class="brand" aria-label="Jianxuan Shao selected work">Jianxuan<br>Shao<span>.</span></a>
+    <nav aria-label="Project navigation"><a href="index.html#work">Work <span>10</span></a><a href="#method">My work</a><a href="#results">Results</a></nav>
+    <a class="header-contact" href="index.html#work">Selected work <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main" class="coursework-main">
+    <section class="coursework-intro" aria-labelledby="project-title">
+      <div class="coursework-kicker"><span>SELECTED WORK / 10</span><span>COMP5339 DATA ENGINEERING · 2026</span></div>
+      <h1 id="project-title">Replaying the Grid<span>.</span></h1>
+      <p class="coursework-lead">How can a map show a week of electricity generation and emissions as the readings arrive?</p>
+      <p>Our three-person team built a local demo using a recorded week from Australia’s National Electricity Market. I joined facility locations to the readings in DuckDB and built the MQTT publisher that fed them to the team’s map in event order.</p>
+    </section>
+    <figure class="coursework-cover grid-cover">
+      <a href="assets/coursework/electricity-replay-dashboard.png" aria-label="View the full-size screenshot of the electricity replay dashboard">
+        <img src="assets/coursework/electricity-replay-dashboard.png" alt="The team dashboard showing messages received and electricity facilities mapped across eastern and southern Australia during the local replay" width="2600" height="1440">
+      </a>
+      <figcaption>Our Streamlit and Folium dashboard receiving MQTT messages from the local replay. Select the image to see the full-size screenshot.</figcaption>
+    </figure>
+    <section id="method" class="coursework-section" aria-labelledby="method-title">
+      <div><p class="coursework-label">01 / MY WORK</p><h2 id="method-title">Give each reading a place and time</h2></div>
+      <div class="coursework-prose">
+        <p>I used DuckDB to connect the cleaned five-minute readings to the facility and location data from our first assignment. Facility names did not always match across sources. The join used a facility match first, then OpenElectricity’s facility coordinates, then a regional fallback. I included the coordinate source in the MQTT message so the map could show how each location was assigned.</p>
+        <p>I defined the MQTT topic and the JSON message format, including the facility, event timestamp, power output, emissions and location. The publisher sorted the records by event time before sending them to the map.</p>
+      </div>
+    </section>
+    <section id="replay" class="coursework-section" aria-labelledby="replay-title">
+      <div><p class="coursework-label">02 / DESIGN DECISION</p><h2 id="replay-title">Make a week of data possible to demo</h2></div>
+      <div class="coursework-prose">
+        <p>At a delay of 0.1 seconds per record, replaying the full week would take about 20 hours before any skips or pauses. I made the publisher send batches of up to 3,000 records in chronological order, pause between batches and skip readings when a facility’s power and emissions values were unchanged.</p>
+        <p>That let us demonstrate the map updating from the first batch and leave the replay running to process subsequent batches. I documented how to start the local broker and run the publisher and dashboard.</p>
+      </div>
+    </section>
+    <section id="results" class="coursework-section" aria-labelledby="results-title">
+      <div><p class="coursework-label">03 / TEAM RESULT</p><h2 id="results-title">From stored records to a map that updates</h2></div>
+      <div class="coursework-prose">
+        <dl class="coursework-metrics">
+          <div><dt>Cleaned records</dt><dd>716,454</dd></div>
+          <div><dt>Facilities</dt><dd>356</dd></div>
+          <div><dt>Five-minute intervals</dt><dd>2,016</dd></div>
+        </dl>
+        <p>The prepared dataset covered seven days. My teammates led the API retrieval, cleaning and dashboard development. In the local demo, the dashboard subscribed to the replay, kept the latest message for each facility and let viewers explore power output and emissions by region and fuel type.</p>
+      </div>
+    </section>
+    <p class="coursework-back"><a href="index.html#work">↖ Back to selected work</a></p>
+  </main>
+</body>
+</html>
