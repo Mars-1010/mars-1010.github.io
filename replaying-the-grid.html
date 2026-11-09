@@ -17,6 +17,9 @@
     .grid-project-map { padding-top: clamp(28px, 4vw, 52px); border-top: 1px solid var(--line); }
     .grid-project-map h2 { margin: .18em 0 .3em; font-size: clamp(32px, 4.5vw, 62px); letter-spacing: -.06em; line-height: 1; }
     .grid-project-map > p { max-width: 76ch; }
+    .grid-project-map iframe.grid-replay-app { height: clamp(580px, 84vh, 920px); background: #fff; }
+    .grid-project-map details { margin-top: 22px; }
+    .grid-project-map summary { cursor: pointer; }
     .grid-project-map iframe { display: block; width: 100%; height: clamp(360px, 68vh, 650px); margin-top: 20px; border: 1px solid var(--line); border-radius: 4px; background: #e4e9e6; }
     .grid-project-map .coursework-note a { text-decoration: underline; text-underline-offset: .16em; }
     .grid-project-map + .coursework-section { margin-top: clamp(36px, 6vw, 80px); }
@@ -36,17 +39,22 @@
       <p class="coursework-lead">How can a map show a week of electricity generation and emissions as the readings arrive?</p>
       <p>For a COMP5339 group assignment, I built the pipeline and map end to end. I retrieved a recorded week from Australia’s National Electricity Market, cleaned the readings, joined them with facility locations in DuckDB, and replayed them through MQTT into a map.</p>
       <div class="grid-project-links">
-        <a href="#project-map">Explore the project map <span aria-hidden="true">↓</span></a>
+        <a href="#project-map">Play the full replay <span aria-hidden="true">↓</span></a>
         <a href="https://github.com/Mars-1010/mars-1010.github.io/tree/main/comp5339">View the Python source <span aria-hidden="true">↗</span></a>
       </div>
     </section>
     <section id="project-map" class="grid-project-map" aria-labelledby="grid-project-map-title">
       <span id="interactive-replay"></span>
-      <p class="coursework-label">PROJECT OUTPUT / FOLIUM EXPORT</p>
-      <h2 id="grid-project-map-title">Explore all 356 facilities</h2>
-      <p>This is the map exported from my original Python dashboard at the first timestamp in the project, 1 May 2026 at 00:00 AEST. Zoom in and click a facility to see its generation, emissions and how its location was assigned.</p>
+      <p class="coursework-label">PROJECT OUTPUT / INTERACTIVE REPLAY</p>
+      <h2 id="grid-project-map-title">Replay a week on the grid</h2>
+      <p>Press Play replay or jump to a time on the slider. The dashboard receives recorded readings over MQTT for 356 facilities across 2,016 time steps. Pause to inspect a facility or filter by region and fuel.</p>
+      <p class="coursework-note"><a href="https://mars-1010-grid-replay.streamlit.app/" target="_blank" rel="noopener">Open the dashboard in a new tab ↗</a></p>
+      <iframe class="grid-replay-app" src="https://mars-1010-grid-replay.streamlit.app/?embed=true" title="COMP5339 dashboard with a full week of electricity replay" loading="lazy" allowfullscreen></iframe>
+      <details>
+        <summary>Browse the map at the first recorded time</summary>
       <iframe src="assets/coursework/comp5339-map.html?v=au-basemap-1" title="Original COMP5339 Folium map with 356 electricity facilities" loading="lazy" sandbox="allow-scripts"></iframe>
-      <p class="coursework-note"><a href="assets/coursework/comp5339-map.html?v=au-basemap-1">Open the map full screen ↗</a>. The <a href="https://github.com/Mars-1010/mars-1010.github.io/tree/main/comp5339">source repository</a> contains the full Python dashboard, MQTT publisher and instructions for replaying the week. The map shows one recorded timestamp. Data from <a href="https://platform.openelectricity.org.au/license">Open Electricity (Superpower Institute)</a>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>. Basemap from <a href="https://www.naturalearthdata.com/about/terms-of-use/">Natural Earth</a>.</p>
+      </details>
+      <p class="coursework-note">Historical data from <a href="https://platform.openelectricity.org.au/license">Open Electricity (Superpower Institute)</a>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>. Basemap from <a href="https://www.naturalearthdata.com/about/terms-of-use/">Natural Earth</a>.</p>
     </section>
     <section id="method" class="coursework-section" aria-labelledby="method-title">
       <div><p class="coursework-label">01 / MY WORK</p><h2 id="method-title">Give each reading a place and time</h2></div>
