@@ -21,8 +21,8 @@
     <section class="coursework-intro" aria-labelledby="project-title">
       <div class="coursework-kicker"><span>SELECTED WORK / 07</span><span>CSYS5030 INFORMATION THEORY · 2026</span></div>
       <h1 id="project-title">Information<br>in motion<span>.</span></h1>
-      <p class="coursework-lead">Shared and predictive information in arm and ankle movement during walking and running.</p>
-      <p>I used public wearable-sensor recordings to ask whether the relationship between arm and ankle acceleration changes with activity, and how much the answer depends on the estimator.</p>
+      <p class="coursework-lead">How does the relationship between arm and ankle motion change when the same person goes from walking to running?</p>
+      <p><strong>My role.</strong> I analysed public wearable sensor recordings. I prepared the arm and ankle signals, compared walking and running for each person, and checked how much my results depended on the method I used.</p>
     </section>
 
     <figure class="coursework-cover">
@@ -33,9 +33,9 @@
     <section id="method" class="coursework-section" aria-labelledby="method-title">
       <div><p class="coursework-label">01 / ANALYSIS DESIGN</p><h2 id="method-title">Compare each person with themselves</h2></div>
       <div class="coursework-prose">
-        <p>I used two pilot participants and a separate set of eight evaluation participants. Each evaluation participant contributed one walking and one running bout. I filtered the acceleration magnitudes, took the central 50 seconds of each bout and resampled to 25 Hz.</p>
-        <p>I compared nearest-neighbour and Gaussian estimates of mutual information (MI). I also estimated transfer entropy (TE) in both directions using JIDT, asking how much the current value of one signal helped predict the other 40 ms later, given its recent history.</p>
-        <p>I checked the TE implementation against simulated signals with known one-way coupling and examined how the estimates changed when I varied the length of the target signal’s history.</p>
+        <p><strong>Paired comparison.</strong> I used recordings from two people to pilot the analysis, then compared one walking and one running bout for each of eight other people. I filtered the acceleration data, kept the middle 50 seconds of each bout and resampled to 25 Hz.</p>
+        <p><strong>Two measures.</strong> I used mutual information (MI) to measure how much information the arm and ankle signals shared at the same instant, comparing nearest-neighbour and Gaussian estimates. With transfer entropy (TE), I asked whether each signal helped predict the other 40 ms later, beyond what its own recent history already told me.</p>
+        <p><strong>Checks.</strong> I ran the transfer entropy analysis on simulated signals with a known one-way influence. I also checked how much the estimates changed when I varied the length of the target signal’s history.</p>
         <p><a href="https://archive.ics.uci.edu/dataset/319/mhealth+dataset">UCI MHEALTH dataset ↗</a> · <a href="https://github.com/jlizier/jidt">JIDT toolkit ↗</a></p>
       </div>
     </section>
@@ -48,7 +48,7 @@
           <figcaption>Each grey line connects one participant’s walking and running estimates. The dark line shows the group means.</figcaption>
         </figure>
         <p>Running minus walking averaged <strong>−0.172 bits</strong> for nearest-neighbour MI and <strong>+0.075 bits</strong> for Gaussian MI, a descriptive comparison. The three primary tests had a Holm-adjusted <em>p</em> of .164, leaving the activity contrasts inconclusive.</p>
-        <p>An exploratory control rotated both signals by the same random phase at each frequency, preserving their spectra and covariance. This changed the nearest-neighbour MI contrast, which suggests that covariance alone did not account for the observed pattern.</p>
+        <p><strong>Why I added a control.</strong> The two MI estimates pointed in opposite directions. I applied the same random phase shift to both signals at each frequency, keeping their spectra and covariance fixed. Under this control, the nearest-neighbour difference went from <strong>−0.172 to +0.074 bits</strong>. The direction could change even with those properties held fixed.</p>
         <p>Running minus walking averaged +0.042 bits for arm-to-ankle TE and −0.047 bits in the reverse direction. A shared gait rhythm could drive both signals, so these directional estimates describe prediction under the chosen model. Direct causation remains unresolved.</p>
       </div>
     </section>
