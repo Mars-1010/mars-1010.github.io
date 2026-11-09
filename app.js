@@ -1,4 +1,4 @@
-import { projects } from './content.js?v=20261109-grid-replay';
+import { projects } from './content.js?v=20261109-grid-replay-v2';
 import { EditorialStudy } from './portfolio-sculpture.js';
 import { AssistantPresence } from './assistant-presence.js';
 import { initAssistantStudy } from './assistant-study.js';
