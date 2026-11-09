@@ -16,3 +16,5 @@ The published notebook reads the API key from the environment and has its saved 
 4. Open the dashboard first, then run the notebook's MQTT section and enable `RUN_REAL_MQTT_PUBLISHER`. The dashboard shows the actual subscriber count, facility markers, filters, popups and latest values.
 
 The full application requires a Python host, an MQTT broker and access to the prepared data. The portfolio embeds a single timestamp exported with the original Folium renderer.
+
+The dashboard and export use the bundled Australian state boundaries from [Natural Earth](https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_50m_admin_1_states_provinces_lakes.geojson).

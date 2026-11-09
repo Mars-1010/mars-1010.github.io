@@ -384,6 +384,48 @@ def popup_html(row):
     """
 
 
+def make_map(folium, location):
+    """Use the bundled Natural Earth states instead of requesting map tiles."""
+    m = folium.Map(location=location, zoom_start=4, tiles=None, zoom_snap=0.5)
+    m.get_root().header.add_child(folium.Element(
+        f"<style>#{m.get_name()} {{ background: #dfe8e7; }}</style>"
+    ))
+    boundaries = json.loads((BASE_DIR / "australia-states.geojson").read_text(encoding="utf-8"))
+    folium.GeoJson(
+        boundaries,
+        name="Natural Earth",
+        interactive=False,
+        style_function=lambda _: {
+            "fillColor": "#f7f6ed",
+            "fillOpacity": 1,
+            "color": "#8b9c94",
+            "weight": 1,
+        },
+    ).add_to(m)
+
+    state_labels = {
+        "WA": (-26.2, 121.0),
+        "NT": (-20.1, 133.4),
+        "SA": (-29.6, 135.8),
+        "QLD": (-22.5, 143.4),
+        "NSW": (-32.0, 145.3),
+        "VIC": (-37.5, 142.9),
+        "TAS": (-42.0, 146.2),
+    }
+    for label, point in state_labels.items():
+        folium.Marker(
+            point,
+            icon=folium.DivIcon(
+                icon_size=(30, 16),
+                icon_anchor=(15, 8),
+                html=f'<span style="font:600 11px sans-serif;letter-spacing:.08em;color:#52635b">{label}</span>',
+            ),
+            interactive=False,
+            keyboard=False,
+        ).add_to(m)
+    return m
+
+
 def draw_map(df, metric_col):
     try:
         import folium
@@ -393,20 +435,20 @@ def draw_map(df, metric_col):
         st.stop()
 
     if df.empty:
-        m = folium.Map(location=[-27.0, 135.0], zoom_start=4, tiles="CartoDB positron")
+        m = make_map(folium, [-27.0, 135.0])
         st_folium(m, height=650, use_container_width=True, returned_objects=[])
         return
 
     centre_lat = df["latitude"].mean()
     centre_lon = df["longitude"].mean()
-    m = folium.Map(location=[centre_lat, centre_lon], zoom_start=4, tiles="CartoDB positron")
+    m = make_map(folium, [centre_lat, centre_lon])
 
     max_metric = max(df[metric_col].abs().max(), 1)
     colour = "#1f77b4" if metric_col == "power_mw" else "#d62728"
 
     for _, row in df.iterrows():
         metric_value = abs(float(row[metric_col]))
-        radius = 5 + min(metric_value / max_metric, 1) * 13
+        radius = 3 + min(metric_value / max_metric, 1) * 11
 
         folium.CircleMarker(
             location=[row["latitude"], row["longitude"]],
