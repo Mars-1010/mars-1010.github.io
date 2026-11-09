@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<defs>
+  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#718399" stroke-opacity=".15"/></pattern>
+  <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#f3f5f8"/><stop offset="1" stop-color="#b1c2d7"/></linearGradient>
+  <linearGradient id="ink-surface" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#b1c2d7"/><stop offset="1" stop-color="#4b627c"/></linearGradient>
+  <filter id="lift" x="-25%" y="-25%" width="160%" height="170%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#293549" flood-opacity=".18"/></filter>
+  <marker id="arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M2 2l8 4-8 4" fill="none" stroke="#4b627c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<style>
+  text{fill:#293549;font-family:'DM Sans',Arial,sans-serif}
+  .label{font-size:21px;font-weight:600;letter-spacing:2.1px}
+  .small{font-size:17px;letter-spacing:2px}
+  .fine{font-size:15px;letter-spacing:1.2px}
+  .guide{fill:none;stroke:#718399;stroke-opacity:.48;stroke-width:1.35}
+  .flow{fill:none;stroke:#4b627c;stroke-width:2.4;marker-end:url(#arrow);stroke-linecap:round;stroke-linejoin:round}
+</style>
+<rect x="98" y="152" width="1004" height="442" fill="url(#grid)"/>
+<path d="M98 152H1102" class="guide"/>
+
+<text class="label" x="100" y="121" text-anchor="start">01 / SIGN IN</text><text class="label" x="600" y="121" text-anchor="middle">02 / GENERATE</text><text class="label" x="1100" y="121" text-anchor="end">03 / STORE</text>
+<path class="flow" d="M340 371h118m284 0h106"/>
+<path class="guide" d="M600 154v440" stroke-dasharray="4 7"/>
+<g transform="translate(153 215)" filter="url(#lift)">
+  <rect width="160" height="301" rx="26" fill="#4b627c" stroke="#293549" stroke-width="2.8"/>
+  <rect x="8" y="9" width="144" height="282" rx="20" fill="#f3f5f8"/>
+  <path d="M60 24h40M63 275h34" stroke="#718399" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="80" cy="84" r="21" fill="url(#surface)" stroke="#718399"/>
+  <circle cx="80" cy="79" r="5.4" fill="#4b627c"/><path d="M70 91q10-10 20 0" fill="none" stroke="#4b627c" stroke-width="2"/>
+  <rect x="30" y="121" width="100" height="28" rx="5" fill="#e5e8ee" stroke="#a5b3c2"/>
+  <rect x="30" y="163" width="100" height="28" rx="5" fill="#e5e8ee" stroke="#a5b3c2"/>
+  <rect x="38" y="212" width="84" height="26" rx="5" fill="#4b627c"/>
+  <text x="80" y="229" text-anchor="middle" style="font-size:12px;fill:#fff">SIGN IN</text>
+</g>
+<g filter="url(#lift)">
+  <rect x="481" y="281" width="237" height="179" rx="13" fill="url(#surface)" stroke="#637c97" stroke-width="2"/>
+  <path d="M481 320h237" stroke="#8297af"/>
+  <g fill="#718399"><circle cx="502" cy="302" r="4"/><circle cx="517" cy="302" r="4"/><circle cx="532" cy="302" r="4"/></g>
+  <path d="M514 355h113m-113 28h167m-167 27h89" stroke="#718399" stroke-width="3" stroke-linecap="round"/>
+  <rect x="630" y="344" width="51" height="20" rx="5" fill="#eee0b7"/>
+  <text x="600" y="439" class="fine" text-anchor="middle">TOKEN GENERATOR</text>
+</g>
+<g transform="translate(866 287)" filter="url(#lift)" stroke="#4b627c" stroke-width="2.2">
+  <path d="M0 36v111c0 20 49 37 107 37s107-17 107-37V36" fill="url(#ink-surface)"/>
+  <ellipse cx="107" cy="36" rx="107" ry="36" fill="url(#surface)"/>
+  <path d="M0 88c0 20 49 37 107 37s107-17 107-37" fill="none"/>
+  <text x="107" y="87" class="fine" text-anchor="middle" stroke="none">SESSION STATE</text>
+</g>
+<path d="M98 594H1102" class="guide"/><text class="small" x="98" y="628">AI ASSISTED TRIAGE</text><text class="small" x="1102" y="628" text-anchor="end">MANUAL VERIFICATION IN JADX</text>
+
+</svg>

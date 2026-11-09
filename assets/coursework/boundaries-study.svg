@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<defs>
+  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#788370" stroke-opacity=".15"/></pattern>
+  <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#f5f4ec"/><stop offset="1" stop-color="#b8c4a9"/></linearGradient>
+  <linearGradient id="ink-surface" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#b8c4a9"/><stop offset="1" stop-color="#55674f"/></linearGradient>
+  <filter id="lift" x="-25%" y="-25%" width="160%" height="170%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#343d31" flood-opacity=".18"/></filter>
+  <marker id="arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M2 2l8 4-8 4" fill="none" stroke="#55674f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<style>
+  text{fill:#343d31;font-family:'DM Sans',Arial,sans-serif}
+  .label{font-size:21px;font-weight:600;letter-spacing:2.1px}
+  .small{font-size:17px;letter-spacing:2px}
+  .fine{font-size:15px;letter-spacing:1.2px}
+  .guide{fill:none;stroke:#788370;stroke-opacity:.48;stroke-width:1.35}
+  .flow{fill:none;stroke:#55674f;stroke-width:2.4;marker-end:url(#arrow);stroke-linecap:round;stroke-linejoin:round}
+</style>
+<rect x="98" y="152" width="1004" height="442" fill="url(#grid)"/>
+<path d="M98 152H1102" class="guide"/>
+
+<text class="label" x="100" y="121" text-anchor="start">EXHIBITION PLAN</text><text class="label" x="1100" y="121" text-anchor="end">PREVIEW BEFORE APPLYING</text>
+<g transform="translate(146 211)">
+  <rect x="0" y="0" width="904" height="315" rx="20" fill="#f4f3eb" stroke="#788370" stroke-width="2.2" filter="url(#lift)"/>
+  <path d="M26 45H875M26 271H875M80 45V271M815 45V271" class="guide" stroke-dasharray="5 7"/>
+  <rect x="95" y="72" width="255" height="176" rx="15" fill="#e3ebd7" stroke="#718567" stroke-width="2" stroke-dasharray="7 6"/>
+  <g transform="translate(134 118)">
+    <rect width="173" height="81" rx="8" fill="url(#surface)" stroke="#637660" stroke-width="2"/>
+    <path d="M25 28h74m-74 18h117" stroke="#889680" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="25" y="67" class="fine">PANEL A</text>
+    <circle cx="149" cy="22" r="14" fill="#5b7352"/>
+    <path d="M145 22l3 3 5-6" fill="none" stroke="#fff" stroke-width="2"/>
+  </g>
+  <g transform="translate(457 151) rotate(-9)">
+    <rect width="169" height="85" rx="8" fill="url(#surface)" stroke="#788370" stroke-width="2"/>
+    <path d="M23 28h74m-74 17h112" stroke="#9da994" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="23" y="67" class="fine">PANEL B</text>
+  </g>
+  <g transform="translate(672 58) rotate(8)">
+    <rect width="152" height="81" rx="8" fill="#dce8d4" fill-opacity=".45" stroke="#687f60" stroke-width="2.2" stroke-dasharray="5 5"/>
+    <path d="M20 28h74m-74 17h102" stroke="#9da994" stroke-width="2" stroke-linecap="round"/>
+    <text x="20" y="66" class="fine">PREVIEW</text>
+  </g>
+  <path d="M640 181q45-6 57-39" class="flow" stroke-dasharray="4 5"/>
+</g>
+<path d="M98 594H1102" class="guide"/><text class="small" x="98" y="628">PROTECT PANEL A</text><text class="small" x="1102" y="628" text-anchor="end">PREVIEW A NEW POSITION FOR PANEL B</text>
+
+</svg>

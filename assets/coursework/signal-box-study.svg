@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<defs>
+  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#8d7aa3" stroke-opacity=".15"/></pattern>
+  <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#f8f5f0"/><stop offset="1" stop-color="#c9b9da"/></linearGradient>
+  <linearGradient id="ink-surface" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#c9b9da"/><stop offset="1" stop-color="#66507e"/></linearGradient>
+  <filter id="lift" x="-25%" y="-25%" width="160%" height="170%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#352b45" flood-opacity=".18"/></filter>
+  <marker id="arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M2 2l8 4-8 4" fill="none" stroke="#66507e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<style>
+  text{fill:#352b45;font-family:'DM Sans',Arial,sans-serif}
+  .label{font-size:21px;font-weight:600;letter-spacing:2.1px}
+  .small{font-size:17px;letter-spacing:2px}
+  .fine{font-size:15px;letter-spacing:1.2px}
+  .guide{fill:none;stroke:#8d7aa3;stroke-opacity:.48;stroke-width:1.35}
+  .flow{fill:none;stroke:#66507e;stroke-width:2.4;marker-end:url(#arrow);stroke-linecap:round;stroke-linejoin:round}
+</style>
+<rect x="98" y="152" width="1004" height="442" fill="url(#grid)"/>
+<path d="M98 152H1102" class="guide"/>
+
+<text class="label" x="103" y="121" text-anchor="start">01 / DESCRIBE</text><text class="label" x="600" y="121" text-anchor="middle">02 / PRESS</text><text class="label" x="1095" y="121" text-anchor="end">03 / REVEAL</text>
+<path class="guide" d="M407 152V594M792 152V594" stroke-dasharray="4 8"/>
+<path class="flow" d="M351 372h69m364 0h68"/>
+<ellipse cx="595" cy="502" rx="174" ry="25" fill="#504062" opacity=".1"/>
+<g transform="translate(152 221) rotate(-11 99 143)" filter="url(#lift)">
+  <rect width="184" height="281" rx="8" fill="#f8f5f0" stroke="#8d7aa3" stroke-width="2"/>
+  <rect x="13" y="13" width="158" height="255" rx="5" fill="none" stroke="#c8bcd3"/>
+  <path d="M31 59h121m-121 64h121m-121 61h121m-121 61h121" fill="none" stroke="#b19cc2" stroke-width="1.5"/>
+  <text x="31" y="48" class="fine">WAITING SLIP</text>
+  <text x="31" y="112" class="fine">APPLICATION</text>
+  <text x="31" y="173" class="fine">STAGE</text>
+  <text x="31" y="234" class="fine">DAYS WAITED</text>
+</g>
+<g filter="url(#lift)" stroke="#5d496d" stroke-width="2.8" stroke-linejoin="round">
+  <path d="M442 333l105-86 218 33-95 94z" fill="url(#surface)"/>
+  <path d="M442 333l228 41v148l-228-43z" fill="url(#ink-surface)"/>
+  <path d="M670 374l95-94v150l-95 92z" fill="#705987"/>
+  <path d="M485 399l147 28v14l-147-28z" fill="#584369"/>
+  <path d="M488 408l137 26" stroke="#e7dded" stroke-width="3"/>
+  <path d="M505 307l34-29 61 9-34 32z" fill="#4f3a60"/>
+  <ellipse cx="672" cy="316" rx="31" ry="17" fill="#785f8a"/>
+  <ellipse cx="672" cy="311" rx="30" ry="15" fill="#f1dfae"/>
+  <path d="M685 273l8-19m8 22l16-13m-31 2l-3-12" stroke="#8d7aa3" stroke-width="1.8" stroke-linecap="round"/>
+</g>
+<g filter="url(#lift)">
+  <g transform="translate(909 232) rotate(9 82 139)">
+    <rect x="13" y="13" width="167" height="260" rx="11" fill="#766287" stroke="#5d496d" stroke-width="2"/>
+    <rect x="22" y="22" width="149" height="241" rx="8" fill="none" stroke="#bdaecb"/>
+    <rect x="-3" y="-2" width="167" height="260" rx="11" fill="#f8f5f0" stroke="#806c93" stroke-width="2"/>
+    <rect x="8" y="9" width="145" height="238" rx="7" fill="none" stroke="#bdaecb"/>
+    <path d="M81 42l43 52-43 53-42-53z" fill="url(#surface)" stroke="#806c93" stroke-width="1.5"/>
+    <circle cx="81" cy="94" r="14" fill="#766287"/>
+    <path d="M33 173h96m-96 18h96m-83 18h70" stroke="#bdaecb" stroke-width="2" stroke-linecap="round"/>
+    <text x="81" y="234" class="fine" text-anchor="middle">STORY</text>
+  </g>
+</g>
+<path d="M98 594H1102" class="guide"/><text class="small" x="98" y="628">PAPER PROTOTYPE</text><text class="small" x="1102" y="628" text-anchor="end">SOURCE ON THE REVERSE</text>
+
+</svg>

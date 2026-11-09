@@ -1,0 +1,101 @@
+#work .project-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+
+#work .project-card {
+  --cover-matte: #eae6ef;
+  grid-column: auto;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+#work .project-card[data-project="immersive"] {
+  --cover-matte: #e4e6ec;
+  grid-column: 1 / -1;
+}
+
+#work .project-card[data-project="heritage"] { --cover-matte: #ebe8e1; }
+#work .project-card[data-project="game"],
+#work .project-card[data-project="mhealth"] { --cover-matte: #e4e3ed; }
+#work .project-card[data-project="capstone"] { --cover-matte: #e8e6ec; }
+#work .project-card[data-project="boundaries"] { --cover-matte: #e7e8e0; }
+#work .project-card[data-project="android-security"] { --cover-matte: #e5e8ee; }
+#work .project-card[data-project="pathmnist"] { --cover-matte: #ebe4ec; }
+
+#work .project-card .project-art {
+  height: auto;
+  aspect-ratio: 1.1;
+  border: 0;
+  background: var(--cover-matte);
+}
+
+#work .project-card[data-project="immersive"] .project-art {
+  aspect-ratio: 2.25;
+}
+
+#work .project-card .project-art::after { content: none; }
+
+#work .project-card .project-reference {
+  inset: 14% 7%;
+  width: 86%;
+  height: 72%;
+  border-radius: 3px;
+  object-fit: contain;
+  object-position: center;
+  filter: none;
+}
+
+#work .project-card:is([data-project="immersive"], [data-project="heritage"]) .project-reference {
+  object-fit: cover;
+}
+
+#work .project-card[data-project="immersive"] .project-reference { object-position: center 80%; }
+
+#work .project-card:is([data-project="immersive"], [data-project="heritage"]):hover .project-reference {
+  transform: none;
+}
+
+#work .project-card:has(.project-reference[src$=".svg"]) .project-reference {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+#work .project-card .project-num,
+#work .project-card .art-caption {
+  padding: 0;
+  color: #514b59;
+  background: none;
+  text-shadow: none;
+}
+
+#work .project-card .art-caption {
+  right: 68px;
+  bottom: 23px;
+  line-height: 1.3;
+}
+
+#work .project-card .project-arrow {
+  color: var(--ink);
+  border-color: #77717e70;
+  background: none;
+}
+
+#work .project-card:hover .project-arrow,
+#work .project-card:focus-visible .project-arrow {
+  background: var(--paper);
+}
+
+@media (max-width: 700px) {
+  #work .project-card { margin-bottom: 42px; }
+  #work .project-card:last-child { margin-bottom: 0; }
+  #work .project-card[data-project="immersive"] .project-art { aspect-ratio: 1.35; }
+  #work .project-card .art-caption { right: 58px; bottom: 19px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #work .project-card:hover .project-reference { transform: none; }
+}

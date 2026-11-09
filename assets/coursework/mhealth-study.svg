@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<defs>
+  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#817498" stroke-opacity=".15"/></pattern>
+  <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#f4f1f4"/><stop offset="1" stop-color="#c2b7d1"/></linearGradient>
+  <linearGradient id="ink-surface" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#c2b7d1"/><stop offset="1" stop-color="#504465"/></linearGradient>
+  <filter id="lift" x="-25%" y="-25%" width="160%" height="170%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#302a42" flood-opacity=".18"/></filter>
+  <marker id="arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M2 2l8 4-8 4" fill="none" stroke="#504465" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<style>
+  text{fill:#302a42;font-family:'DM Sans',Arial,sans-serif}
+  .label{font-size:21px;font-weight:600;letter-spacing:2.1px}
+  .small{font-size:17px;letter-spacing:2px}
+  .fine{font-size:15px;letter-spacing:1.2px}
+  .guide{fill:none;stroke:#817498;stroke-opacity:.48;stroke-width:1.35}
+  .flow{fill:none;stroke:#504465;stroke-width:2.4;marker-end:url(#arrow);stroke-linecap:round;stroke-linejoin:round}
+</style>
+<rect x="98" y="152" width="1004" height="442" fill="url(#grid)"/>
+<path d="M98 152H1102" class="guide"/>
+
+<text class="label" x="100" y="121" text-anchor="start">PLACEMENT STUDY</text><text class="label" x="1100" y="121" text-anchor="end">TWO WEARABLE SENSORS</text>
+<circle cx="552" cy="359" r="188" class="guide"/><circle cx="552" cy="359" r="138" class="guide"/>
+<path d="M552 152v442M130 537h615" class="guide" stroke-dasharray="4 7"/>
+<ellipse cx="546" cy="534" rx="172" ry="17" fill="#615570" opacity=".09"/>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M560 280l64 49 50-21m-114 54l-38 70-80 62" stroke="#a69ab9" stroke-width="19"/>
+  <path d="M548 286l-39 54-60-25m89 66l79 37 33 77m-112-114l-52 70-75 46" stroke="#504465" stroke-width="23"/>
+  <path d="M529 377l52-106" stroke="url(#ink-surface)" stroke-width="48"/>
+  <path d="M404 501l-32 12m275-14l31 14" stroke="#504465" stroke-width="16"/>
+  <path d="M585 259l10-22" stroke="#504465" stroke-width="18"/>
+  <circle cx="607" cy="214" r="31" fill="url(#surface)" stroke="#504465" stroke-width="4"/>
+  <circle cx="455" cy="318" r="22" stroke="#817498" stroke-width="1.6"/>
+  <circle cx="643" cy="478" r="22" stroke="#817498" stroke-width="1.6"/>
+</g>
+<g fill="#f2dfaa" stroke="#504465" stroke-width="2.2">
+  <rect x="444" y="307" width="22" height="22" rx="4" transform="rotate(-18 455 318)"/>
+  <rect x="632" y="467" width="22" height="22" rx="4" transform="rotate(-22 643 478)"/>
+</g>
+<path d="M433 313l-63-45H125m544 210h69l48-63" fill="none" stroke="#756687" stroke-width="1.6"/>
+<text x="125" y="252" class="small">RIGHT LOWER ARM</text>
+<text x="796" y="407" class="small">LEFT ANKLE</text>
+<g transform="translate(795 245)">
+  <path d="M0 44H270M0 112H270" class="guide"/>
+  <path d="M0 44c14 0 18-29 30-29s13 50 27 50 15-39 29-39 14 29 28 29 14-50 30-50 12 63 27 63 15-45 30-45 14 38 28 38 18-23 41-23" fill="none" stroke="#64547c" stroke-width="2.6"/>
+  <path d="M0 112c13 0 16-18 26-18 13 0 16 32 30 32 10 0 15-47 28-47s13 51 26 51 17-34 31-34 12 22 27 22 15-43 26-43 19 55 32 55 15-31 44-31" fill="none" stroke="#a08fb1" stroke-width="2.6"/>
+  <text x="0" y="-9" class="fine">ILLUSTRATIVE TRACES</text>
+</g>
+<path d="M98 594H1102" class="guide"/><text class="small" x="98" y="628">WITHIN-PERSON COMPARISON</text><text class="small" x="1102" y="628" text-anchor="end">WALKING / RUNNING</text>
+
+</svg>
