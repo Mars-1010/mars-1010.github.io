@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">Information in motion</title><desc id="desc">Schematic of the right lower-arm and left ankle accelerometer positions used in the walking and running analysis.</desc>
+<defs><pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0v36" fill="none" stroke="#4b496c" stroke-opacity=".09"/></pattern></defs>
+<path fill="#e4e3ed" d="M0 0h1200v720H0z"/><path fill="url(#grid)" d="M0 0h1200v720H0z"/>
+<g fill="none" stroke="#b7b3c7" stroke-width="1"><path d="M108 156h984M108 573h984"/><path d="M607 180v370" stroke-dasharray="5 9"/><circle cx="606" cy="370" r="199"/><circle cx="606" cy="370" r="148"/></g>
+<g fill="none" stroke="#5a4d72" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="653" cy="228" r="33" fill="#d7d0ed" stroke-width="4"/>
+  <path d="M624 270q-35 51-51 109l74 46 52 88h50M574 380l-58 77-61 51h-47M611 295l-70 48-62-35M624 298l54 49 62-42" stroke-width="21"/>
+</g>
+<g stroke="#756393" fill="none" stroke-width="2">
+  <path d="M486 312 403 257H151M690 498l100-56h248"/>
+  <circle cx="486" cy="312" r="20"/><circle cx="690" cy="498" r="20"/>
+</g>
+<g fill="#efe7c9" stroke="#5a4d72" stroke-width="3"><rect x="475" y="302" width="22" height="20" rx="4"/><rect x="679" y="488" width="22" height="20" rx="4"/></g>
+<g font-family="Arial,sans-serif" fill="#453b52" font-size="19" letter-spacing="2"><text x="151" y="239">RIGHT LOWER ARM</text><text x="867" y="425">LEFT ANKLE</text><text x="111" y="613">PAIRED WALKING / RUNNING</text><text x="865" y="613">MHEALTH SIGNALS</text></g>
+</svg>

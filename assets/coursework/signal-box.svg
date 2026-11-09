@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">Signal Box</title><desc id="desc">A waiting slip enters the physical box. The user presses a button and receives a two-sided story card.</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0v32" fill="none" stroke="#695981" stroke-opacity=".1"/></pattern></defs>
+<path fill="#eae6ef" d="M0 0h1200v720H0z"/><path fill="url(#grid)" d="M0 0h1200v720H0z"/>
+<g fill="none" stroke="#aea1bf" stroke-width="1"><path d="M100 575h1000M100 155h1000"/><path d="M600 160v415" stroke-dasharray="5 9"/></g>
+<g font-family="Arial,sans-serif" fill="#453b52" font-size="19" letter-spacing="2"><text x="112" y="192">01 / WAITING SLIP</text><text x="470" y="192">02 / PRESS</text><text x="905" y="192">03 / STORY CARD</text></g>
+<g transform="translate(133 290) rotate(-11 89 116)">
+ <rect x="10" y="10" width="178" height="233" rx="5" fill="#a99aba" opacity=".28"/>
+ <rect width="178" height="233" rx="5" fill="#f8f6f2" stroke="#7b6c8b" stroke-width="2"/>
+ <path d="M24 46h130M24 98h130M24 150h130M24 202h130" stroke="#c0b4ca" stroke-width="2"/>
+ <g fill="#4c4058" font-family="Arial,sans-serif" font-size="16"><text x="24" y="36">APPLICATION</text><text x="24" y="86">STAGE</text><text x="24" y="138">DAYS WAITED</text></g>
+</g>
+<g fill="none" stroke="#675777" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M331 406h85m-13-13 13 13-13 13M784 406h75m-13-13 13 13-13 13"/></g>
+<g stroke="#5a486e" stroke-width="3" stroke-linejoin="round">
+ <path d="M450 362 549 276l215 36-91 84z" fill="#d7d0ed"/>
+ <path d="M450 362l223 34v151l-223-42z" fill="#9e8ab7"/>
+ <path d="M673 396l91-84v157l-91 78z" fill="#76628c"/>
+ <path d="M506 333l54 9 27-24-54-9z" fill="#4e3b62"/>
+ <ellipse cx="644" cy="340" rx="24" ry="15" fill="#7b649a"/>
+ <ellipse cx="644" cy="336" rx="24" ry="15" fill="#f0dfc1"/>
+ <path d="M523 450l106 18" fill="none" stroke="#f2ecf8" stroke-width="7"/>
+</g>
+<g transform="translate(884 280) rotate(9 88 115)">
+ <rect x="21" y="15" width="173" height="235" rx="12" fill="#9380aa" stroke="#5a486e" stroke-width="2"/>
+ <rect width="173" height="235" rx="12" fill="#f8f6f2" stroke="#7b6c8b" stroke-width="2"/>
+ <rect x="16" y="16" width="141" height="203" rx="7" fill="none" stroke="#b9a8ca"/>
+ <path d="M86 67 120 105 86 143 52 105z" fill="#d7d0ed" stroke="#7b6c8b" stroke-width="2"/>
+ <circle cx="86" cy="105" r="12" fill="#76628c"/>
+ <text x="36" y="182" fill="#4c4058" font-family="Arial,sans-serif" font-size="17" letter-spacing="2">STORY</text>
+</g>
+<g font-family="Arial,sans-serif" fill="#645971" font-size="17" letter-spacing="3"><text x="112" y="614">PAPER PROTOTYPE</text><text x="864" y="614">SOURCE ON REVERSE</text></g>
+</svg>

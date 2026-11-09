@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f0f0ed">
+  <title>Shared and predictive information in gait / Jianxuan Shao</title>
+  <meta name="description" content="A CSYS5030 wearable-sensor analysis comparing walking and running using mutual information and transfer entropy.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="coursework.css">
+</head>
+<body class="coursework">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="header">
+    <a href="index.html#work" class="brand" aria-label="Jianxuan Shao selected work">Jianxuan<br>Shao<span>.</span></a>
+    <nav aria-label="Project navigation"><a href="index.html#work">Work <span>07</span></a><a href="#method">Method</a><a href="#findings">Findings</a></nav>
+    <a class="header-contact" href="index.html#work">Selected work <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main" class="coursework-main">
+    <section class="coursework-intro" aria-labelledby="project-title">
+      <div class="coursework-kicker"><span>SELECTED WORK / 07</span><span>CSYS5030 INFORMATION THEORY · 2026</span></div>
+      <h1 id="project-title">Information<br>in motion<span>.</span></h1>
+      <p class="coursework-lead">Shared and predictive information in arm and ankle movement during walking and running.</p>
+      <p>I used public wearable-sensor recordings to ask whether the relationship between arm and ankle acceleration changes with activity, and how much the answer depends on the estimator.</p>
+    </section>
+
+    <figure class="coursework-cover">
+      <img src="assets/coursework/mhealth.svg" alt="Illustration marking lower-arm and ankle sensor positions during movement" width="1200" height="720">
+      <figcaption>Sensor locations in the analysis. Illustration of the setup.</figcaption>
+    </figure>
+
+    <section id="method" class="coursework-section" aria-labelledby="method-title">
+      <div><p class="coursework-label">01 / ANALYSIS DESIGN</p><h2 id="method-title">Compare each person with themselves</h2></div>
+      <div class="coursework-prose">
+        <p>I used two pilot participants and a separate set of eight evaluation participants. Each evaluation participant contributed one walking and one running bout. I filtered the acceleration magnitudes, took the central 50 seconds of each bout and resampled to 25 Hz.</p>
+        <p>I compared nearest-neighbour and Gaussian estimates of mutual information (MI). I also estimated transfer entropy (TE) in both directions using JIDT, asking how much the current value of one signal helped predict the other 40 ms later, given its recent history.</p>
+        <p>I checked the TE implementation against simulated signals with known one-way coupling and examined how the estimates changed when I varied the length of the target signal’s history.</p>
+        <p><a href="https://archive.ics.uci.edu/dataset/319/mhealth+dataset">UCI MHEALTH dataset ↗</a> · <a href="https://github.com/jlizier/jidt">JIDT toolkit ↗</a></p>
+      </div>
+    </section>
+
+    <section id="findings" class="coursework-section" aria-labelledby="findings-title">
+      <div><p class="coursework-label">02 / RESULTS AND LIMITS</p><h2 id="findings-title">The estimator changed the picture</h2></div>
+      <div class="coursework-prose">
+        <figure class="coursework-plot">
+          <img src="assets/coursework/mhealth-mi-pairs.png" alt="Paired walking and running KSG mutual information values for eight evaluation participants. The mean is lower during running." width="946" height="902" loading="lazy">
+          <figcaption>Each grey line connects one participant’s walking and running estimates. The dark line shows the group means.</figcaption>
+        </figure>
+        <p>Running minus walking averaged <strong>−0.172 bits</strong> for nearest-neighbour MI and <strong>+0.075 bits</strong> for Gaussian MI, a descriptive comparison. The three primary tests had a Holm-adjusted <em>p</em> of .164, leaving the activity contrasts inconclusive.</p>
+        <p>An exploratory control rotated both signals by the same random phase at each frequency, preserving their spectra and covariance. This changed the nearest-neighbour MI contrast, which suggests that covariance alone did not account for the observed pattern.</p>
+        <p>Running minus walking averaged +0.042 bits for arm-to-ankle TE and −0.047 bits in the reverse direction. A shared gait rhythm could drive both signals, so these directional estimates describe prediction under the chosen model. Direct causation remains unresolved.</p>
+      </div>
+    </section>
+    <p class="coursework-back"><a href="index.html#work">↖ Back to selected work</a></p>
+  </main>
+</body>
+</html>
